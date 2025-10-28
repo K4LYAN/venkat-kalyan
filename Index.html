@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Portfolio of Chavala Venkat Kalyan — Cybersecurity Engineer specializing in secure systems, ethical hacking, and full-stack development."
+  />
+  <meta
+    name="keywords"
+    content="Cybersecurity, Portfolio, Ethical Hacking, Full Stack Developer, Java, Spring Boot, Cloud, Security Engineer"
+  />
+  <meta name="author" content="Chavala Venkat Kalyan" />
+  <title>Chavala Venkat Kalyan | Cybersecurity Portfolio</title>
+  <style>
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-light: #121212;
+      --bg-card: #1a1a1a;
+      --text-primary: #e0e0e0;
+      --text-secondary: #aaaaaa;
+      --accent-green: #00ff41;
+      /* NEW: Added new accent colors for glitch effect */
+      --accent-red: #ff0040;
+      --accent-blue: #00c3ff;
+      --border: #2a2a2a;
+      --radius: 8px;
+      --transition: 0.3s ease;
+      --font-mono: "SF Mono", "Fira Code", "Courier New", monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Scanline overlay for a subtle tech feel */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.01) 2px,
+        rgba(255, 255, 255, 0.01) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      margin-bottom: 2rem;
+      color: var(--accent-green);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: var(--accent-green);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    a:hover {
+      opacity: 0.8;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    section:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+
+    /* --- NEW: Modern Hero Section --- */
+    .hero-header {
+      height: 100vh; /* Full screen height */
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      position: relative;
+      background: var(--bg-dark);
+      padding: 0 3rem; /* Padding for grid columns */
+      gap: 2rem;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 500px;
+      justify-self: end; /* Align left column to the right */
+    }
+
+    .hero-header h1 {
+      color: var(--text-primary);
+      text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: clamp(1rem, 4vw, 1.25rem);
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Typing effect styles */
+    .typing-cursor {
+      display: inline-block;
+      width: 10px;
+      height: clamp(1rem, 4vw, 1.25rem);
+      background: var(--accent-green);
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .hero-link {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .hero-link:hover {
+      color: var(--accent-green);
+      border-color: var(--accent-green);
+      background: rgba(0, 255, 65, 0.1);
+    }
+
+    /* NEW: Glitching Monogram Visual */
+    .hero-visual {
+      position: relative;
+      justify-self: start; /* Align right column to the left */
+    }
+
+    .glitch-monogram {
+      font-family: var(--font-mono);
+      font-size: clamp(15rem, 30vw, 25rem);
+      font-weight: 700;
+      color: var(--accent-green);
+      position: relative;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5),
+        0 0 20px rgba(0, 255, 65, 0.3);
+      animation: glitch 2.5s infinite linear alternate-reverse;
+      user-select: none;
+    }
+
+    .glitch-monogram::before,
+    .glitch-monogram::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-dark);
+      overflow: hidden;
+    }
+
+    .glitch-monogram::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--accent-red);
+      animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+
+    .glitch-monogram::after {
+      left: -2px;
+      text-shadow: -2px 0 var(--accent-blue);
+      animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    }
+
+    /* NEW: Glitch Keyframes */
+    @keyframes glitch {
+      0% { transform: skew(0deg); }
+      20% { transform: skew(1deg, -1deg); }
+      40% { transform: skew(-2deg, 2deg); }
+      60% { transform: skew(0.5deg, -0.5deg); }
+      80% { transform: skew(3deg, -1.5deg); }
+      100% { transform: skew(0deg); }
+    }
+
+    @keyframes glitch-anim-1 {
+      0%, 100% { clip-path: inset(0 0 0 0); }
+      20% { clip-path: inset(20% 0 50% 0); }
+      40% { clip-path: inset(60% 0 10% 0); }
+      60% { clip-path: inset(30% 0 30% 0); }
+      80% { clip-path: inset(80% 0 5% 0); }
+    }
+
+    @keyframes glitch-anim-2 {
+      0%, 100% { clip-path: inset(0 0 0 0); }
+      25% { clip-path: inset(40% 0 40% 0); }
+      50% { clip-path: inset(10% 0 70% 0); }
+      75% { clip-path: inset(70% 0 20% 0); }
+    }
+
+
+    /* Minimal Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%); /* Center horizontally */
+      z-index: 2;
+      width: 24px;
+      height: 24px;
+      border-left: 2px solid var(--accent-green);
+      border-bottom: 2px solid var(--accent-green);
+      opacity: 0.6;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateX(-50%) translateY(0) rotate(-45deg);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-10px) rotate(-45deg);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-5px) rotate(-45deg);
+      }
+    }
+
+    /* --- Dynamic Island Nav --- */
+    .dynamic-island-nav {
+      position: sticky;
+      top: 1rem;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      pointer-events: none; /* Pass clicks through the container */
+    }
+
+    .nav-content {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(30, 30, 30, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.75rem 1rem;
+      border-radius: 50px;
+      pointer-events: auto; /* Enable clicks on the nav itself */
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-content:hover {
+      transform: scale(1.03);
+    }
+
+    .nav-content a {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      transition: var(--transition);
+      white-space: nowrap; /* Prevent links from breaking */
+    }
+
+    .nav-content a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-content a.active {
+      color: var(--accent-green);
+      text-shadow: 0 0 5px var(--accent-green);
+    }
+
+    /* --- Card Hover Glow --- */
+    @keyframes colorChangeGlow {
+      0% {
+        border-color: #00ff41;
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+      }
+      25% {
+        border-color: #00c3ff;
+        box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
+      }
+      50% {
+        border-color: #ff0040;
+        box-shadow: 0 0 15px rgba(255, 0, 64, 0.5);
+      }
+      75% {
+        border-color: #ffc400;
+        box-shadow: 0 0 15px rgba(255, 196, 0, 0.5);
+      }
+      100% {
+        border-color: #00ff41;
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+      }
+    }
+
+    /* Wrapper for glow effect */
+    .about-item,
+    .project-card,
+    .experience-item,
+    .education-item,
+    .achievement-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: var(--transition);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-item-content,
+    .project-card-content,
+    .experience-item-content,
+    .education-item-content,
+    .achievement-item-content {
+      position: relative;
+      z-index: 2;
+      background: var(--bg-card); /* Match parent to hide overflow */
+    }
+
+    .about-item:hover,
+    .project-card:hover,
+    .experience-item:hover,
+    .education-item:hover,
+    .achievement-item:hover {
+      transform: translateY(-5px);
+      animation: colorChangeGlow 4s linear infinite;
+    }
+
+    /* --- Eye-Catching Text --- */
+    .highlight {
+      color: var(--accent-green);
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* --- Grid Layouts --- */
+    .about-grid,
+    .projects-grid,
+    .experience-grid,
+    .education-grid,
+    .achievements-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    /* 3-column grid for about */
+    .about-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* 2-column grid for projects */
+    .projects-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    /* 1-column grid for experience, education, achievements */
+    .experience-grid,
+    .education-grid,
+    .achievements-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* --- Card Content --- */
+    .about-item li,
+    .project-card li,
+    .experience-item li,
+    .education-item li,
+    .achievement-item li {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    .about-item li::before,
+    .project-card li::before,
+    .experience-item li::before,
+    .education-item li::before,
+    .achievement-item li::before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      color: var(--accent-green);
+      font-weight: 700;
+    }
+
+    .tech-list {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .job-info {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* --- Contact Section --- */
+    #contact {
+      text-align: center;
+    }
+
+    #contact p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .contact-links a {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--accent-green);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+    }
+
+    .contact-links a:hover {
+      background: rgba(0, 255, 65, 0.1);
+      border-color: var(--accent-green);
+    }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--bg-light);
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      /* NEW: Stack Hero on mobile */
+      .hero-header {
+        grid-template-columns: 1fr; /* Stack columns */
+        height: 100vh; /* Still full height */
+        padding: 0 1.5rem;
+        justify-content: center;
+        text-align: center;
+      }
+      
+      .hero-content {
+        justify-self: center; /* Center content block */
+        grid-row: 2; /* Move text below visual */
+      }
+      
+      .hero-visual {
+        justify-self: center; /* Center visual block */
+        grid-row: 1; /* Move visual above text */
+      }
+      
+      .glitch-monogram {
+        font-size: clamp(10rem, 40vw, 15rem); /* Smaller monogram */
+      }
+
+      .hero-links {
+        justify-content: center;
+      }
+
+      /* Mobile Nav Bar */
+      .dynamic-island-nav {
+        top: 0;
+        padding: 0.5rem;
+      }
+
+      .nav-content {
+        gap: 0.25rem; /* Reduced gap for mobile */
+        padding: 0.5rem;
+        flex-wrap: wrap; 
+        justify-content: center;
+        max-width: 95%; /* Allow island to take up width */
+      }
+
+      .nav-content a {
+        padding: 0.25rem 0.5rem; /* Smaller padding on links */
+        font-size: 0.8rem;
+      }
+      
+      /* Reduce padding on mobile */
+      section {
+        padding: 3rem 0;
+      }
+
+      h2 {
+        margin-bottom: 1.5rem;
+      }
+
+      .about-item,
+      .project-card,
+      .experience-item,
+      .education-item,
+      .achievement-item {
+        padding: 1rem;
+      }
+
+      .contact-links {
+        flex-direction: column; /* Stack contact links */
+        gap: 1rem;
+      }
+    }
+
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+      .scroll-indicator {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Dynamic Island Nav -->
+  <nav class="dynamic-island-nav">
+    <div class="nav-content">
+      <a href="#about" class="active">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-header" id="hero">
+    <!-- Left Column: Content -->
+    <div class="hero-content">
+      <h1>Chavala Venkat Kalyan</h1>
+      <p class="hero-subtitle">
+        <span id="typing-text"></span><span class="typing-cursor"></span>
+      </p>
+      <div class="hero-links">
+        <a
+          href="https://linkedin.com/in/venkatkalyanchavala/"
+          target="_blank"
+          class="hero-link"
+          >LinkedIn</a
+        >
+        <a
+          href="https://github.com/K4LYAN"
+          target="_blank"
+          class="hero-link"
+          >GitHub</a
+        >
+        <a href="mailto:venkatkalyan437@gmail.com" class="hero-link">Email</a>
+      </div>
+    </div>
+    
+    <!-- Right Column: Visual -->
+    <div class="hero-visual">
+      <div class="glitch-monogram" data-text="K">K</div>
+    </div>
+    
+    <div class="scroll-indicator"></div>
+  </header>
+
+  <main>
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <h2>> About / Skills</h2>
+        <div class="about-grid">
+          <!-- Technical Skills -->
+          <div class="about-item">
+            <div class="about-item-content">
+              <h3>Technical Skills</h3>
+              <ul>
+                <li>
+                  <span class="highlight">Security Tools:</span> Burp Suite, Nmap,
+                  Metasploit, Wireshark, SQLMap, Hydra, John the Ripper,
+                  Hashcat.
+                </li>
+                <li>
+                  <span class="highlight">SIEM & Monitoring:</span> Wazuh, Splunk
+                  (basic), ELK Stack.
+                </li>
+                <li>
+                  <span class="highlight">Languages:</span> Java, Python, SQL,
+                  JavaScript, HTML5/CSS3.
+                </li>
+                <li>
+                  <span class="highlight">Frameworks:</span> Spring Boot, REST APIs,
+                  Git, Maven, WordPress, Figma.
+                </li>
+                <li>
+                  <span class="highlight">Cloud & Virtualization:</span> AWS,
+                  VirtualBox, noVNC.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="about-item">
+            <div class="about-item-content">
+              <h3>Certifications</h3>
+              <ul>
+                <li>
+                  <span class="highlight">EC-Council:</span> Network Defense
+                  Essentials
+                </li>
+                <li>
+                  <span class="highlight">EC-Council:</span> Ethical Hacking
+                  Essentials
+                </li>
+                <li>
+                  <span class="highlight">IBM:</span> Penetration Testing and
+                  Incident Response
+                </li>
+                <li>
+                  <span class="highlight">NPTEL:</span> CyberSecurity and Privacy
+                </li>
+                <li>
+                  <span class="highlight">AWS:</span> Academy Graduate - Cloud
+                  Architecting
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Publication -->
+          <div class="about-item">
+            <div class="about-item-content">
+              <h3>Publication</h3>
+              <ul>
+                <li>
+                  <span class="highlight">Title:</span> Modern Career Guidance: A
+                  Personalized Approach to Success
+                </li>
+                <li>
+                  <span class="highlight">Journal:</span> Journal of Nonlinear
+                  Analysis and Optimization, Vol. 16, Issue 1, 2025
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+      <div class="container">
+        <h2>> Experience</h2>
+        <div class="experience-grid">
+          <div class="experience-item">
+            <div class="experience-item-content">
+              <h3>
+                <span class="highlight">Internship</span> @ Center for
+                Development of Advanced Computing (CDAC)
+              </h3>
+              <p class="job-info">
+                Bangalore, Karnataka | Mar 2025 - Present
+              </p>
+              <ul>
+                <li>
+                  Worked on real-time cybersecurity and full-stack projects
+                  involving secure portal development and vulnerability
+                  assessment.
+                </li>
+                <li>
+                  Supported R&D teams with system design, coding, testing, and
+                  documentation.
+                </li>
+                <li>
+                  Mentored 200+ students on secure coding aligned with OWASP,
+                  MITRE ATT&CK, and NIST guidelines.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+      <div class="container">
+        <h2>> Education</h2>
+        <div class="education-grid">
+          <div class="education-item">
+            <div class="education-item-content">
+              <h3>
+                <span class="highlight">Bachelor of Technology</span>, Computer
+                Science
+              </h3>
+              <p class="job-info">
+                Usha Rama College of Engineering and Technology, Vijayawada |
+                Grad: May 2025
+              </p>
+              <ul>
+                <li>
+                  Relevant Coursework: CyberSecurity, Network Defense,
+                  Blockchain, Cloud Architecting.
+                </li>
+                <li><span class="highlight">CGPA:</span> 7.54</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements">
+      <div class="container">
+        <h2>> Achievements</h2>
+        <div class="achievements-grid">
+          <div class="achievement-item">
+            <div class="achievement-item-content">
+              <h3>
+                <span class="highlight">1st Prize</span>, Web Development
+                Competition
+              </h3>
+              <p class="job-info">AICTE Cell (College-Level)</p>
+              <ul>
+                <li>
+                  Awarded 1st place twice, demonstrating superior web
+                  development skills.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="achievement-item">
+            <div class="achievement-item-content">
+              <h3>
+                <span class="highlight">Top 10 Finalist</span>, GUVI
+                Skill-A-Thon
+              </h3>
+              <p class="job-info">
+                200,000+ Participants | APSSDC Govt. Website
+              </p>
+              <ul>
+                <li>
+                  Ranked in the top 10 for designing the official Andhra
+                  Pradesh State Skill Development Corporation website.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="achievement-item">
+            <div class="achievement-item-content">
+              <h3>
+                <span class="highlight">2nd Prize</span>, Cyber Security
+                Seminar & Bug Bounty
+              </h3>
+              <p class="job-info">College-Level Event</p>
+              <ul>
+                <li>
+                  Awarded for a comprehensive security presentation and for
+                  identifying critical application vulnerabilities.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="container">
+        <h2>> Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-card-content">
+              <h3>Secure Web Portal for Cybersecurity Awareness</h3>
+              <p class="tech-list">
+                <span class="highlight">Tech:</span> Spring Boot, React, MySQL
+              </p>
+              <ul>
+                <li>
+                  Developed a secure, role-based portal with dashboards for
+                  students, teachers, and admins.
+                </li>
+                <li>
+                  Followed <span class="highlight">OWASP Top 10</span> to
+                  prevent XSS, SQL injection, and CSRF vulnerabilities.
+                </li>
+                <li>
+                  Integrated a virtual lab using VMs and noVNC for hands-on
+                  practice.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-card-content">
+              <h3>Modern Career Guidance Platform</h3>
+              <p class="tech-list">
+                <span class="highlight">Tech:</span> Java, Spring Boot, NLP,
+                JS
+              </p>
+              <ul>
+                <li>
+                  Engineered a recommendation engine using collaborative
+                  filtering and ML.
+                </li>
+                <li>
+                  Delivered personalized course suggestions, boosting user
+                  engagement by <span class="highlight">60%</span>.
+                </li>
+                <li>
+                  Increased course completion rates by
+                  <span class="highlight">35%</span>.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <h2>> Contact</h2>
+        <p>
+          I'm currently seeking internship and full-time opportunities in
+          Cybersecurity and Software Engineering. Let's connect.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:venkatkalyan437@gmail.com">Email</a>
+          <a
+            href="https://linkedin.com/in/venkatkalyanchavala/"
+            target="_blank"
+            >LinkedIn</a
+          >
+          <a href="https://github.com/K4LYAN" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        &copy; <span id="year"></span> Chavala Venkat Kalyan | Designed with
+        <span style="color: var(--accent-green)">&lt;/&gt;</span>
+      </D>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // --- Auto-update footer year ---
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // --- Typing Animation ---
+      const typingText = document.getElementById("typing-text");
+      const text = "Cybersecurity Engineer & Full-Stack Developer";
+      let index = 0;
+      let isDeleting = false;
+      const typingSpeed = 100;
+      const deletingSpeed = 50;
+      const delay = 2000;
+
+      function type() {
+        let currentText = text.substring(0, index);
+        typingText.textContent = currentText;
+
+        if (isDeleting) {
+          index--;
+        } else {
+          index++;
+        }
+
+        if (index === text.length) {
+          isDeleting = true;
+          setTimeout(type, delay);
+        } else if (index === 0) {
+          isDeleting = false;
+          setTimeout(type, typingSpeed);
+        } else {
+          setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+        }
+      }
+      type();
+
+      // --- Active Nav Highlighting on Scroll ---
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-content a");
+
+      function onScroll() {
+        let current = "";
+        const headerHeight =
+          document.querySelector("header").offsetHeight;
+        const navHeight = document.querySelector(
+          ".dynamic-island-nav"
+        ).offsetHeight;
+        // NEW: Check if navHeight is valid
+        const validNavHeight = navHeight || 50; // Default to 50 if nav not rendered
+        
+        // Use 90% of header height as trigger point
+        const offset = headerHeight * 0.9 - validNavHeight; 
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          if (pageYOffset >= sectionTop - validNavHeight) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        // Special case for hero/about
+        if (pageYOffset < offset) {
+          current = "about"; // Default to 'about' when at the top
+        }
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+This logic is slightly flawed. `pageYOffset < offset` will make `about` active *before* you even scroll to the `about` section.
+
+Let's rethink the scroll-spy logic.
+The goal:
+1.  When a section (`#about`, `#experience`, etc.) is in the viewport, highlight its link.
+2.  The hero section (`#hero`) doesn't have a link. The *first* link is `#about`.
+3.  The nav bar is sticky. A good trigger point is when the *top* of a section passes the *bottom* of the sticky nav.
+
+Revised `onScroll` logic:
+
+```javascript
+      function onScroll() {
+        const navHeight = document.querySelector('.dynamic-island-nav').offsetHeight || 50;
+        let currentSectionId = '';
+
+        // Check from bottom to top
+        [...sections].reverse().forEach((section) => {
+          const sectionTop = section.offsetTop;
+          // If we've scrolled past the top of this section (minus nav height), it's the active one.
+          if (pageYOffset >= sectionTop - navHeight - 10) { // Add 10px buffer
+            if (!currentSectionId) { // Only set the first one we find (which is the lowest on the page)
+              currentSectionId = section.getAttribute('id');
+            }
+          }
+        });
+        
+        // If we're at the very top, default to 'about'
+        if (pageYOffset < sections[0].offsetTop - navHeight - 10) {
+            currentSectionId = 'about';
+        }
+
+        navLinks.forEach((link) => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + currentSectionId) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+This is better. It finds the last section that has passed the nav bar's position.
+Let's re-integrate this logic into the full <script> tag.
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // --- Auto-update footer year ---
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // --- Typing Animation ---
+      const typingText = document.getElementById("typing-text");
+      const text = "Cybersecurity Engineer & Full-Stack Developer";
+      let index = 0;
+      let isDeleting = false;
+      const typingSpeed = 100;
+      const deletingSpeed = 50;
+      const delay = 2000;
+
+      function type() {
+        if (!typingText) return; // Safety check
+        let currentText = text.substring(0, index);
+        typingText.textContent = currentText;
+
+        if (isDeleting) {
+          index--;
+        } else {
+          index++;
+        }
+
+        if (index === text.length) {
+          isDeleting = true;
+          setTimeout(type, delay);
+        } else if (index === 0) {
+          isDeleting = false;
+          setTimeout(type, typingSpeed);
+        } else {
+          setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+        }
+      }
+      type(); // Start typing
+
+      // --- Active Nav Highlighting on Scroll ---
+      const sections = document.querySelectorAll("main section[id]"); // Target sections inside main
+      const navLinks = document.querySelectorAll(".nav-content a");
+      const nav = document.querySelector(".dynamic-island-nav");
+
+      function onScroll() {
+        if (!nav || sections.length === 0 || navLinks.length === 0) return; // Safety check
+
+        const navHeight = nav.offsetHeight || 50;
+        let currentSectionId = '';
+
+        // Iterate from bottom to top
+        [...sections].reverse().forEach((section) => {
+          const sectionTop = section.offsetTop;
+          // Check if scroll position is past the section top (minus nav height and a buffer)
+          if (pageYOffset >= sectionTop - navHeight - 20) {
+            if (!currentSectionId) { // Only set the first one found (lowest on page)
+              currentSectionId = section.getAttribute("id");
+            }
+          }
+        });
+
+        // If very top of page (before first section), default to 'about'
+        if (pageYOffset < sections[0].offsetTop - navHeight - 20) {
+          currentSectionId = 'about';
+        }
+        
+        // If no section is matched (e.g., in the hero), default to 'about'
+        if (!currentSectionId) {
+             currentSectionId = 'about';
+        }
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + currentSectionId) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", onScroll);
+      onScroll(); // Run on load
+    });
+  </script>
+
+
