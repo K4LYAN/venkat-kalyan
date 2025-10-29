@@ -641,13 +641,13 @@
       </p>
       <div class="hero-links">
         <a
-          href="https://linkedin.com/in/venkatkalyanchavala/"
+          href="[https://linkedin.com/in/venkatkalyanchavala/](https://linkedin.com/in/venkatkalyanchavala/)"
           target="_blank"
           class="hero-link"
           >LinkedIn</a
         >
         <a
-          href="https://github.com/K4LYAN"
+          href="[https://github.com/K4LYAN](https://github.com/K4LYAN)"
           target="_blank"
           class="hero-link"
           >GitHub</a
@@ -932,11 +932,11 @@
         <div class="contact-links">
           <a href="mailto:venkatkalyan437@gmail.com">Email</a>
           <a
-            href="https://linkedin.com/in/venkatkalyanchavala/"
+            href="[https://linkedin.com/in/venkatkalyanchavala/](https://linkedin.com/in/venkatkalyanchavala/)"
             target="_blank"
             >LinkedIn</a
           >
-          <a href="https://github.com/K4LYAN" target="_blank">GitHub</a>
+          <a href="[https://github.com/K4LYAN](https://github.com/K4LYAN)" target="_blank">GitHub</a>
         </div>
       </div>
     </section>
@@ -947,121 +947,11 @@
       <p>
         &copy; <span id="year"></span> Chavala Venkat Kalyan | Designed with
         <span style="color: var(--accent-green)">&lt;/&gt;</span>
-      </D>
+      </p>
     </div>
   </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // --- Auto-update footer year ---
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      // --- Typing Animation ---
-      const typingText = document.getElementById("typing-text");
-      const text = "Cybersecurity Engineer & Full-Stack Developer";
-      let index = 0;
-      let isDeleting = false;
-      const typingSpeed = 100;
-      const deletingSpeed = 50;
-      const delay = 2000;
-
-      function type() {
-        let currentText = text.substring(0, index);
-        typingText.textContent = currentText;
-
-        if (isDeleting) {
-          index--;
-        } else {
-          index++;
-        }
-
-        if (index === text.length) {
-          isDeleting = true;
-          setTimeout(type, delay);
-        } else if (index === 0) {
-          isDeleting = false;
-          setTimeout(type, typingSpeed);
-        } else {
-          setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
-        }
-      }
-      type();
-
-      // --- Active Nav Highlighting on Scroll ---
-      const sections = document.querySelectorAll("section[id]");
-      const navLinks = document.querySelectorAll(".nav-content a");
-
-      function onScroll() {
-        let current = "";
-        const headerHeight =
-          document.querySelector("header").offsetHeight;
-        const navHeight = document.querySelector(
-          ".dynamic-island-nav"
-        ).offsetHeight;
-        // NEW: Check if navHeight is valid
-        const validNavHeight = navHeight || 50; // Default to 50 if nav not rendered
-        
-        // Use 90% of header height as trigger point
-        const offset = headerHeight * 0.9 - validNavHeight; 
-
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
-          if (pageYOffset >= sectionTop - validNavHeight) {
-            current = section.getAttribute("id");
-          }
-        });
-
-        // Special case for hero/about
-        if (pageYOffset < offset) {
-          current = "about"; // Default to 'about' when at the top
-        }
-
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-This logic is slightly flawed. `pageYOffset < offset` will make `about` active *before* you even scroll to the `about` section.
-
-Let's rethink the scroll-spy logic.
-The goal:
-1.  When a section (`#about`, `#experience`, etc.) is in the viewport, highlight its link.
-2.  The hero section (`#hero`) doesn't have a link. The *first* link is `#about`.
-3.  The nav bar is sticky. A good trigger point is when the *top* of a section passes the *bottom* of the sticky nav.
-
-Revised `onScroll` logic:
-
-```javascript
-      function onScroll() {
-        const navHeight = document.querySelector('.dynamic-island-nav').offsetHeight || 50;
-        let currentSectionId = '';
-
-        // Check from bottom to top
-        [...sections].reverse().forEach((section) => {
-          const sectionTop = section.offsetTop;
-          // If we've scrolled past the top of this section (minus nav height), it's the active one.
-          if (pageYOffset >= sectionTop - navHeight - 10) { // Add 10px buffer
-            if (!currentSectionId) { // Only set the first one we find (which is the lowest on the page)
-              currentSectionId = section.getAttribute('id');
-            }
-          }
-        });
-        
-        // If we're at the very top, default to 'about'
-        if (pageYOffset < sections[0].offsetTop - navHeight - 10) {
-            currentSectionId = 'about';
-        }
-
-        navLinks.forEach((link) => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + currentSectionId) {
-            link.classList.add('active');
-          }
-        });
-      }
-
-This is better. It finds the last section that has passed the nav bar's position.
-Let's re-integrate this logic into the full <script> tag.
-    <script>
     document.addEventListener("DOMContentLoaded", function () {
       // --- Auto-update footer year ---
       document.getElementById("year").textContent = new Date().getFullYear();
@@ -1142,5 +1032,6 @@ Let's re-integrate this logic into the full <script> tag.
       onScroll(); // Run on load
     });
   </script>
-
+</body>
+</html>
 
