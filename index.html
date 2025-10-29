@@ -21,9 +21,11 @@
       --text-primary: #e0e0e0;
       --text-secondary: #aaaaaa;
       --accent-green: #00ff41;
-      /* NEW: Added new accent colors for glitch effect */
       --accent-red: #ff0040;
       --accent-blue: #00c3ff;
+      --accent-purple: #9c27b0;
+      --accent-yellow: #ffeb3b;
+      --accent-pink: #e91e63;
       --border: #2a2a2a;
       --radius: 8px;
       --transition: 0.3s ease;
@@ -97,6 +99,31 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* Project Section Title Style */
+    .section-title-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem; /* More space for 3D carousel */
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .section-title-wrapper .icon {
+      width: 24px;
+      height: 24px;
+      color: var(--accent-green);
+    }
+    .section-title-wrapper h2 {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .section-title-wrapper p {
+      color: var(--text-secondary);
+      margin-bottom: 0;
+      margin-top: 0.25rem; /* Align text better */
+    }
+
     h3 {
       font-size: 1.25rem;
       color: var(--text-primary);
@@ -127,148 +154,118 @@
       padding: 5rem 0;
     }
 
-    section:nth-child(even) {
+    /* Alternating section colors */
+    main section:nth-child(even) {
       background-color: var(--bg-light);
     }
 
-    /* --- NEW: Modern Hero Section --- */
+    /* --- Hero Section --- */
     .hero-header {
-      height: 100vh; /* Full screen height */
-      min-height: 600px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
       align-items: center;
+      justify-content: center;
       position: relative;
       background: var(--bg-dark);
-      padding: 0 3rem; /* Padding for grid columns */
-      gap: 2rem;
+      padding: 0 1.5rem;
       overflow: hidden;
+      text-align: center;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 500px;
-      justify-self: end; /* Align left column to the right */
+    }
+
+    .hero-greeting {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
     }
 
     .hero-header h1 {
-      color: var(--text-primary);
-      text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-header h1 span {
+      display: block;
+    }
+
+    .hero-header .highlight-green {
+      color: var(--accent-green);
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    }
+    
+    .hero-header .highlight-blue {
+      color: var(--accent-blue);
+      text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
     }
 
     .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: clamp(1rem, 4vw, 1.25rem);
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
       color: var(--text-secondary);
-      margin-bottom: 1.5rem;
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    /* Typing effect styles */
-    .typing-cursor {
-      display: inline-block;
-      width: 10px;
-      height: clamp(1rem, 4vw, 1.25rem);
-      background: var(--accent-green);
-      margin-left: 5px;
-      animation: blink 1s infinite;
-    }
-
-    .hero-links {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .hero-link {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-      padding: 0.25rem 0.75rem;
-      border-radius: var(--radius);
-      transition: var(--transition);
-    }
-
-    .hero-link:hover {
-      color: var(--accent-green);
-      border-color: var(--accent-green);
-      background: rgba(0, 255, 65, 0.1);
-    }
-
-    /* NEW: Glitching Monogram Visual */
-    .hero-visual {
-      position: relative;
-      justify-self: start; /* Align right column to the left */
-    }
-
-    .glitch-monogram {
-      font-family: var(--font-mono);
-      font-size: clamp(15rem, 30vw, 25rem);
-      font-weight: 700;
-      color: var(--accent-green);
-      position: relative;
-      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5),
-        0 0 20px rgba(0, 255, 65, 0.3);
-      animation: glitch 2.5s infinite linear alternate-reverse;
-      user-select: none;
-    }
-
-    .glitch-monogram::before,
-    .glitch-monogram::after {
-      content: attr(data-text);
+    .floating-card {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg-dark);
-      overflow: hidden;
+      z-index: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      width: 200px; /* Set width for image cards */
+      overflow: hidden; /* Round image corners */
+      /* No transition for drag, makes it feel instant */
+      cursor: grab;
+      user-select: none; /* Prevent text selection */
     }
 
-    .glitch-monogram::before {
-      left: 2px;
-      text-shadow: -2px 0 var(--accent-red);
-      animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    .floating-card.dragging {
+      cursor: grabbing;
+      z-index: 10; /* Bring to front when dragging */
+      transform-origin: center center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Card Positions */
+    .card-1 {
+      top: 15%;
+      left: 10%;
+    }
+    .card-2 {
+      top: 30%;
+      right: 12%;
+    }
+    .card-3 {
+      bottom: 20%;
+      left: 20%;
+    }
+    .card-4 {
+      top: 60%;
+      right: 15%;
+    }
+    .card-5 {
+      top: 75%;
+      left: 5%;
+    }
+    .card-6 {
+      top: 10%;
+      right: 25%;
     }
 
-    .glitch-monogram::after {
-      left: -2px;
-      text-shadow: -2px 0 var(--accent-blue);
-      animation: glitch-anim-2 3s infinite linear alternate-reverse;
-    }
-
-    /* NEW: Glitch Keyframes */
-    @keyframes glitch {
-      0% { transform: skew(0deg); }
-      20% { transform: skew(1deg, -1deg); }
-      40% { transform: skew(-2deg, 2deg); }
-      60% { transform: skew(0.5deg, -0.5deg); }
-      80% { transform: skew(3deg, -1.5deg); }
-      100% { transform: skew(0deg); }
-    }
-
-    @keyframes glitch-anim-1 {
-      0%, 100% { clip-path: inset(0 0 0 0); }
-      20% { clip-path: inset(20% 0 50% 0); }
-      40% { clip-path: inset(60% 0 10% 0); }
-      60% { clip-path: inset(30% 0 30% 0); }
-      80% { clip-path: inset(80% 0 5% 0); }
-    }
-
-    @keyframes glitch-anim-2 {
-      0%, 100% { clip-path: inset(0 0 0 0); }
-      25% { clip-path: inset(40% 0 40% 0); }
-      50% { clip-path: inset(10% 0 70% 0); }
-      75% { clip-path: inset(70% 0 20% 0); }
-    }
-
-
-    /* Minimal Scroll Indicator */
     .scroll-indicator {
       position: absolute;
       bottom: 2rem;
       left: 50%;
-      transform: translateX(-50%); /* Center horizontally */
+      transform: translateX(-50%);
       z-index: 2;
       width: 24px;
       height: 24px;
@@ -279,11 +276,7 @@
     }
 
     @keyframes bounce {
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
+      0%, 20%, 50%, 80%, 100% {
         transform: translateX(-50%) translateY(0) rotate(-45deg);
       }
       40% {
@@ -302,7 +295,7 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      pointer-events: none; /* Pass clicks through the container */
+      pointer-events: none;
     }
 
     .nav-content {
@@ -314,7 +307,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 0.75rem 1rem;
       border-radius: 50px;
-      pointer-events: auto; /* Enable clicks on the nav itself */
+      pointer-events: auto;
       transition: var(--transition);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
@@ -331,7 +324,7 @@
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
       transition: var(--transition);
-      white-space: nowrap; /* Prevent links from breaking */
+      white-space: nowrap;
     }
 
     .nav-content a:hover {
@@ -344,7 +337,7 @@
       text-shadow: 0 0 5px var(--accent-green);
     }
 
-    /* --- Card Hover Glow --- */
+    /* --- Card Hover Glow (For non-project cards) --- */
     @keyframes colorChangeGlow {
       0% {
         border-color: #00ff41;
@@ -368,9 +361,7 @@
       }
     }
 
-    /* Wrapper for glow effect */
     .about-item,
-    .project-card,
     .experience-item,
     .education-item,
     .achievement-item {
@@ -384,17 +375,15 @@
     }
 
     .about-item-content,
-    .project-card-content,
     .experience-item-content,
     .education-item-content,
     .achievement-item-content {
       position: relative;
       z-index: 2;
-      background: var(--bg-card); /* Match parent to hide overflow */
+      background: var(--bg-card);
     }
 
     .about-item:hover,
-    .project-card:hover,
     .experience-item:hover,
     .education-item:hover,
     .achievement-item:hover {
@@ -411,7 +400,6 @@
 
     /* --- Grid Layouts --- */
     .about-grid,
-    .projects-grid,
     .experience-grid,
     .education-grid,
     .achievements-grid {
@@ -419,17 +407,10 @@
       gap: 1.5rem;
     }
 
-    /* 3-column grid for about */
     .about-grid {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    /* 2-column grid for projects */
-    .projects-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    /* 1-column grid for experience, education, achievements */
     .experience-grid,
     .education-grid,
     .achievements-grid {
@@ -438,7 +419,6 @@
 
     /* --- Card Content --- */
     .about-item li,
-    .project-card li,
     .experience-item li,
     .education-item li,
     .achievement-item li {
@@ -450,7 +430,6 @@
     }
 
     .about-item li::before,
-    .project-card li::before,
     .experience-item li::before,
     .education-item li::before,
     .achievement-item li::before {
@@ -476,141 +455,337 @@
       margin-bottom: 1rem;
     }
 
+    /* --- NEW: 3D Coverflow Projects Carousel --- */
+    #projects {
+      padding-bottom: 6rem;
+      overflow: hidden; /* Prevent 3D overflow */
+    }
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      height: 450px; /* Give the carousel a fixed height */
+      perspective: 1000px; /* Enable 3D space */
+    }
+    .projects-carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+    .project-card {
+      position: absolute;
+      width: 80%; /* Cards are 80% of wrapper width */
+      max-width: 600px;
+      height: 100%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: transform 0.6s ease, opacity 0.6s ease, z-index 0s 0.3s;
+      overflow-y: auto; /* Allow scrolling within card */
+    }
+    .project-card-content {
+        padding: 1.5rem;
+    }
+
+    /* 3D States */
+    .project-card.active-slide {
+      transform: translateZ(0);
+      opacity: 1;
+      z-index: 10;
+    }
+    .project-card.prev-slide {
+      transform: translateX(-40%) translateZ(-300px) rotateY(30deg);
+      opacity: 0.3;
+      z-index: 5;
+    }
+    .project-card.next-slide {
+      transform: translateX(40%) translateZ(-300px) rotateY(-30deg);
+      opacity: 0.3;
+      z-index: 5;
+    }
+    .project-card.hidden-slide {
+      transform: translateZ(-800px);
+      opacity: 0;
+      z-index: 1;
+    }
+
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 20; /* Nav must be on top */
+    }
+    .carousel-button {
+      background: rgba(30, 30, 30, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: var(--transition);
+      pointer-events: auto;
+    }
+    .carousel-button:hover {
+      background: var(--bg-card);
+      color: var(--accent-green);
+    }
+    .carousel-button.prev {
+      margin-left: -22px;
+    }
+    .carousel-button.next {
+      margin-right: -22px;
+    }
+    .carousel-button .icon {
+      width: 24px;
+      height: 24px;
+    }
+
     /* --- Contact Section --- */
     #contact {
       text-align: center;
+      background: var(--bg-dark); /* Match footer background */
+      padding-top: 5rem;
+      padding-bottom: 3rem;
     }
 
-    #contact p {
+    #contact h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--text-primary);
+      border-bottom: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-button-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(
+        90deg,
+        var(--accent-green),
+        #00c934
+      );
+      color: #000;
+      font-family: var(--font-mono);
       font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      font-weight: 600;
+      padding: 0.9rem 1.8rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
     }
 
-    .contact-links {
+    .contact-button-primary:hover {
+      opacity: 1;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+    }
+
+    .contact-button-primary .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .contact-links-secondary {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
       margin-top: 2rem;
     }
 
-    .contact-links a {
+    .contact-link-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       font-family: var(--font-mono);
-      font-size: 1rem;
-      color: var(--accent-green);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      padding: 0.6rem 1.2rem;
       border: 1px solid var(--border);
-      padding: 0.75rem 1.5rem;
       border-radius: var(--radius);
+      text-decoration: none;
     }
 
-    .contact-links a:hover {
-      background: rgba(0, 255, 65, 0.1);
-      border-color: var(--accent-green);
+    .contact-link-secondary:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+      opacity: 1;
+    }
+
+    .contact-link-secondary .icon {
+      width: 14px;
+      height: 14px;
+      opacity: 0.7;
+    }
+
+    .contact-phone {
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 2rem;
     }
 
     /* --- Footer --- */
     footer {
       text-align: center;
-      padding: 2rem 1rem;
-      background: var(--bg-light);
+      padding: 1.5rem 1.5rem;
+      background: var(--bg-dark);
       border-top: 1px solid var(--border);
     }
 
-    footer p {
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .footer-copyright {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: var(--text-secondary);
       margin: 0;
     }
 
+    .footer-back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-back-to-top:hover {
+      color: var(--text-primary);
+      opacity: 1;
+    }
+
+    .footer-back-to-top .icon {
+      width: 16px;
+      height: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2px;
+    }
+
     /* --- Responsive --- */
-    @media (max-width: 768px) {
-      /* NEW: Stack Hero on mobile */
+    @media (max-width: 900px) {
+      /* Floating cards are draggable, so keep them */
       .hero-header {
-        grid-template-columns: 1fr; /* Stack columns */
-        height: 100vh; /* Still full height */
-        padding: 0 1.5rem;
-        justify-content: center;
-        text-align: center;
+        min-height: 600px;
       }
-      
-      .hero-content {
-        justify-self: center; /* Center content block */
-        grid-row: 2; /* Move text below visual */
+      .floating-card {
+          width: 150px; /* Smaller on mobile */
       }
-      
-      .hero-visual {
-        justify-self: center; /* Center visual block */
-        grid-row: 1; /* Move visual above text */
-      }
-      
-      .glitch-monogram {
-        font-size: clamp(10rem, 40vw, 15rem); /* Smaller monogram */
-      }
-
-      .hero-links {
-        justify-content: center;
-      }
-
-      /* Mobile Nav Bar */
+      .card-1 { top: 10%; left: 5%; }
+      .card-2 { top: 20%; right: 8%; }
+      .card-3 { bottom: 15%; left: 10%; }
+      .card-4 { top: 50%; right: 10%; }
+      .card-5 { top: 65%; left: 5%; }
+      .card-6 { top: 5%; right: 20%; }
+    }
+    
+    @media (max-width: 768px) {
+      /* Nav */
       .dynamic-island-nav {
         top: 0;
         padding: 0.5rem;
       }
-
       .nav-content {
-        gap: 0.25rem; /* Reduced gap for mobile */
+        gap: 0.25rem;
         padding: 0.5rem;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
         justify-content: center;
-        max-width: 95%; /* Allow island to take up width */
+        max-width: 95%;
       }
-
       .nav-content a {
-        padding: 0.25rem 0.5rem; /* Smaller padding on links */
+        padding: 0.25rem 0.5rem;
         font-size: 0.8rem;
       }
-      
-      /* Reduce padding on mobile */
+
+      /* Sections */
       section {
         padding: 3rem 0;
       }
-
       h2 {
         margin-bottom: 1.5rem;
       }
-
       .about-item,
-      .project-card,
       .experience-item,
       .education-item,
       .achievement-item {
         padding: 1rem;
       }
 
-      .contact-links {
-        flex-direction: column; /* Stack contact links */
+      /* Carousel */
+      .carousel-wrapper {
+        height: 400px; /* Shorter for mobile */
+      }
+      .project-card {
+        width: 90%; /* Narrower cards on mobile */
+      }
+      .project-card.prev-slide {
+        transform: translateX(-30%) translateZ(-150px) rotateY(25deg);
+      }
+      .project-card.next-slide {
+        transform: translateX(30%) translateZ(-150px) rotateY(-25deg);
+      }
+      .carousel-nav {
+        width: calc(100% + 20px);
+        left: -10px;
+      }
+      .carousel-button.prev {
+        margin-left: 0;
+      }
+      .carousel-button.next {
+        margin-right: 0;
+      }
+
+      /* Contact & Footer */
+      #contact {
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+      }
+      .contact-links-secondary {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .footer-content {
+        flex-direction: column;
         gap: 1rem;
       }
     }
 
     @keyframes blink {
-      0%,
-      100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0;
-      }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
-    /* Accessibility */
     @media (prefers-reduced-motion: reduce) {
       * {
         animation: none !important;
-        transition: none !important;
+        transition: none !dimportant;
       }
       .scroll-indicator {
         display: none;
@@ -619,6 +794,28 @@
   </style>
 </head>
 <body>
+  <!-- Embedded SVG Icons -->
+  <svg width="0" height="0" style="display: none;">
+    <symbol id="icon-mail" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5l-8-5h16zm0 12H4V8l8 5l8-5v10z"/>
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3h-7z"/>
+    </symbol>
+    <symbol id="icon-up" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6l1.41 1.41z"/>
+    </symbol>
+    <symbol id="icon-projects" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M10.5 17.5c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25s-1.25.56-1.25 1.25s.56 1.25 1.25 1.25zm8.25-1.25c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25s1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25zM17.21 9l-4.24 4.24l-1.41-1.41l-4.24 4.24l-1.41-1.41l5.66-5.66l1.41 1.41l4.24-4.24l-1.41-1.41l-2.83 2.83L14.5 6.5C14.5 4.02 12.48 2 10 2S5.5 4.02 5.5 6.5V7H2v10c0 1.66 1.34 3 3 3h14c1.66 0 3-1.34 3-3V7h-3.5v2.21zM11.5 7V6.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5V7h-5z"/>
+    </symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12l4.58-4.59z"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M8.59 16.59L10 18l6-6l-6-6l-1.41 1.41L13.17 12l-4.58 4.59z"/>
+    </symbol>
+  </svg>
+
   <!-- Dynamic Island Nav -->
   <nav class="dynamic-island-nav">
     <div class="nav-content">
@@ -633,32 +830,37 @@
 
   <!-- Hero Section -->
   <header class="hero-header" id="hero">
-    <!-- Left Column: Content -->
     <div class="hero-content">
-      <h1>Chavala Venkat Kalyan</h1>
+      <p class="hero-greeting">Hi, I'm Chavala Venkat Kalyan</p>
+      <h1>
+        <span class="highlight-green">Cybersecurity</span>
+        <span class="highlight-blue">& Full-Stack</span>
+        <span>Developer</span>
+      </h1>
       <p class="hero-subtitle">
-        <span id="typing-text"></span><span class="typing-cursor"></span>
+        I build secure, scalable systems and hunt for the vulnerabilities
+        others miss.
       </p>
-      <div class="hero-links">
-        <a
-          href="[https://linkedin.com/in/venkatkalyanchavala/](https://linkedin.com/in/venkatkalyanchavala/)"
-          target="_blank"
-          class="hero-link"
-          >LinkedIn</a
-        >
-        <a
-          href="[https://github.com/K4LYAN](https://github.com/K4LYAN)"
-          target="_blank"
-          class="hero-link"
-          >GitHub</a
-        >
-        <a href="mailto:venkatkalyan437@gmail.com" class="hero-link">Email</a>
-      </div>
     </div>
     
-    <!-- Right Column: Visual -->
-    <div class="hero-visual">
-      <div class="glitch-monogram" data-text="K">K</div>
+    <!-- Draggable Skill Cards -->
+    <div class="floating-card card-1" data-depth="0.2">
+        <img src="https://placehold.co/200x120/1a1a1a/ffeb3b?text=Penetration+Testing" alt="Penetration Testing" style="width: 100%; display: block; pointer-events: none;">
+    </div>
+    <div class="floating-card card-2" data-depth="0.4">
+        <img src="https://placehold.co/200x120/1a1a1a/e91e63?text=Full-Stack+Dev" alt="Full-Stack Dev" style="width: 100%; display: block; pointer-events: none;">
+    </div>
+    <div class="floating-card card-3" data-depth="0.3">
+        <img src="https://placehold.co/200x120/1a1a1a/00c3ff?text=AWS+Cloud" alt="AWS Cloud" style="width: 100%; display: block; pointer-events: none;">
+    </div>
+    <div class="floating-card card-4" data-depth="0.5">
+        <img src="https://placehold.co/200x120/1a1a1a/9c27b0?text=Spring+Boot" alt="Spring Boot" style="width: 100%; display: block; pointer-events: none;">
+    </div>
+    <div class="floating-card card-5" data-depth="0.2">
+        <img src="https://placehold.co/200x120/1a1a1a/00ff41?text=Bug+Bounty" alt="Bug Bounty" style="width: 100%; display: block; pointer-events: none;">
+    </div>
+    <div class="floating-card card-6" data-depth="0.3">
+        <img src="https://placehold.co/200x120/1a1a1a/e0e0e0?text=Secure+Systems" alt="Secure Systems" style="width: 100%; display: block; pointer-events: none;">
     </div>
     
     <div class="scroll-indicator"></div>
@@ -870,52 +1072,84 @@
     <!-- Projects Section -->
     <section id="projects">
       <div class="container">
-        <h2>> Projects</h2>
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-card-content">
-              <h3>Secure Web Portal for Cybersecurity Awareness</h3>
-              <p class="tech-list">
-                <span class="highlight">Tech:</span> Spring Boot, React, MySQL
-              </p>
-              <ul>
-                <li>
-                  Developed a secure, role-based portal with dashboards for
-                  students, teachers, and admins.
-                </li>
-                <li>
-                  Followed <span class="highlight">OWASP Top 10</span> to
-                  prevent XSS, SQL injection, and CSRF vulnerabilities.
-                </li>
-                <li>
-                  Integrated a virtual lab using VMs and noVNC for hands-on
-                  practice.
-                </li>
-              </ul>
-            </div>
+        <div class="section-title-wrapper">
+          <svg class="icon"><use href="#icon-projects" /></svg>
+          <div>
+            <h2>Personal Projects</h2>
+            <p>A collection of side projects I've worked on.</p>
           </div>
-          <div class="project-card">
-            <div class="project-card-content">
-              <h3>Modern Career Guidance Platform</h3>
-              <p class="tech-list">
-                <span class="highlight">Tech:</span> Java, Spring Boot, NLP,
-                JS
-              </p>
-              <ul>
-                <li>
-                  Engineered a recommendation engine using collaborative
-                  filtering and ML.
-                </li>
-                <li>
-                  Delivered personalized course suggestions, boosting user
-                  engagement by <span class="highlight">60%</span>.
-                </li>
-                <li>
-                  Increased course completion rates by
-                  <span class="highlight">35%</span>.
-                </li>
-              </ul>
+        </div>
+
+        <!-- 3D Coverflow Carousel -->
+        <div class="carousel-wrapper">
+          <div class="projects-carousel" id="projects-carousel">
+            <!-- Project 1 -->
+            <div class="project-card">
+              <div class="project-card-content">
+                <h3>Secure Web Portal for Cybersecurity Awareness</h3>
+                <p class="tech-list">
+                  <span class="highlight">Tech:</span> Spring Boot, React, MySQL
+                </p>
+                <ul>
+                  <li>
+                    Developed a secure, role-based portal with dashboards for
+                    students, teachers, and admins.
+                  </li>
+                  <li>
+                    Followed <span class="highlight">OWASP Top 10</span> to
+                    prevent XSS, SQL injection, and CSRF vulnerabilities.
+                  </li>
+                  <li>
+                    Integrated a virtual lab using VMs and noVNC for hands-on
+                    practice.
+                  </li>
+                </ul>
+              </div>
             </div>
+            <!-- Project 2 -->
+            <div class="project-card">
+              <div class="project-card-content">
+                <h3>Modern Career Guidance Platform</h3>
+                <p class="tech-list">
+                  <span class="highlight">Tech:</span> Java, Spring Boot, NLP,
+                  JS
+                </p>
+                <ul>
+                  <li>
+                    Engineered a recommendation engine using collaborative
+                    filtering and ML.
+                  </li>
+                  <li>
+                    Delivered personalized course suggestions, boosting user
+                    engagement by <span class="highlight">60%</span>.
+                  </li>
+                  <li>
+                    Increased course completion rates by
+                    <span class="highlight">35%</span>.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Add more .project-card elements here if you have more projects -->
+            <!-- Example:
+            <div class="project-card">
+              <div class="project-card-content">
+                <h3>Project 3</h3>
+                <p class="tech-list"><span class="highlight">Tech:</span> ...</p>
+                <ul><li>...</li></ul>
+              </div>
+            </div>
+            -->
+          </div>
+
+          <!-- Carousel Navigation -->
+          <div class="carousel-nav">
+            <button class="carousel-button prev" id="prev-slide">
+              <svg class="icon"><use href="#icon-arrow-left" /></svg>
+            </button>
+            <button class="carousel-button next" id="next-slide">
+              <svg class="icon"><use href="#icon-arrow-right" /></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -924,30 +1158,47 @@
     <!-- Contact Section -->
     <section id="contact">
       <div class="container">
-        <h2>> Contact</h2>
-        <p>
-          I'm currently seeking internship and full-time opportunities in
-          Cybersecurity and Software Engineering. Let's connect.
-        </p>
-        <div class="contact-links">
-          <a href="mailto:venkatkalyan437@gmail.com">Email</a>
+        <h2>Get in touch</h2>
+        <a
+          href="mailto:venkatkalyan437@gmail.com"
+          class="contact-button-primary"
+        >
+          <svg class="icon"><use href="#icon-mail" /></svg>
+          Email Me
+        </a>
+        <div class="contact-links-secondary">
           <a
-            href="[https://linkedin.com/in/venkatkalyanchavala/](https://linkedin.com/in/venkatkalyanchavala/)"
+            href="https://linkedin.com/in/venkatkalyanchavala/"
             target="_blank"
-            >LinkedIn</a
+            class="contact-link-secondary"
           >
-          <a href="[https://github.com/K4LYAN](https://github.com/K4LYAN)" target="_blank">GitHub</a>
+            LinkedIn
+            <svg class="icon"><use href="#icon-arrow" /></svg>
+          </a>
+          <a
+            href="https://github.com/K4LYAN"
+            target="_blank"
+            class="contact-link-secondary"
+          >
+            GitHub
+            <svg class="icon"><use href="#icon-arrow" /></svg>
+          </a>
         </div>
+        <p class="contact-phone">Phone: +91 9494332007</p>
       </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>
-        &copy; <span id="year"></span> Chavala Venkat Kalyan | Designed with
-        <span style="color: var(--accent-green)">&lt;/&gt;</span>
+    <div class="footer-content">
+      <p class="footer-copyright">
+        &copy; <span id="year"></span> Chavala Venkat Kalyan
       </p>
+      <a href="#hero" class="footer-back-to-top">
+        Back to top
+        <svg class="icon"><use href="#icon-up" /></svg>
+      </a>
     </div>
   </footer>
 
@@ -956,66 +1207,30 @@
       // --- Auto-update footer year ---
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // --- Typing Animation ---
-      const typingText = document.getElementById("typing-text");
-      const text = "Cybersecurity Engineer & Full-Stack Developer";
-      let index = 0;
-      let isDeleting = false;
-      const typingSpeed = 100;
-      const deletingSpeed = 50;
-      const delay = 2000;
-
-      function type() {
-        if (!typingText) return; // Safety check
-        let currentText = text.substring(0, index);
-        typingText.textContent = currentText;
-
-        if (isDeleting) {
-          index--;
-        } else {
-          index++;
-        }
-
-        if (index === text.length) {
-          isDeleting = true;
-          setTimeout(type, delay);
-        } else if (index === 0) {
-          isDeleting = false;
-          setTimeout(type, typingSpeed);
-        } else {
-          setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
-        }
-      }
-      type(); // Start typing
-
       // --- Active Nav Highlighting on Scroll ---
-      const sections = document.querySelectorAll("main section[id]"); // Target sections inside main
+      const sections = document.querySelectorAll("main section[id]");
       const navLinks = document.querySelectorAll(".nav-content a");
       const nav = document.querySelector(".dynamic-island-nav");
 
       function onScroll() {
-        if (!nav || sections.length === 0 || navLinks.length === 0) return; // Safety check
+        if (!nav || sections.length === 0 || navLinks.length === 0) return;
 
         const navHeight = nav.offsetHeight || 50;
         let currentSectionId = '';
 
-        // Iterate from bottom to top
         [...sections].reverse().forEach((section) => {
           const sectionTop = section.offsetTop;
-          // Check if scroll position is past the section top (minus nav height and a buffer)
           if (pageYOffset >= sectionTop - navHeight - 20) {
-            if (!currentSectionId) { // Only set the first one found (lowest on page)
+            if (!currentSectionId) {
               currentSectionId = section.getAttribute("id");
             }
           }
         });
-
-        // If very top of page (before first section), default to 'about'
-        if (pageYOffset < sections[0].offsetTop - navHeight - 20) {
-          currentSectionId = 'about';
-        }
         
-        // If no section is matched (e.g., in the hero), default to 'about'
+        // Fallback for hero/top of page
+        if (pageYOffset < sections[0].offsetTop - navHeight - 20) {
+          currentSectionId = 'about'; // Default to 'about'
+        }
         if (!currentSectionId) {
              currentSectionId = 'about';
         }
@@ -1030,6 +1245,117 @@
 
       window.addEventListener("scroll", onScroll);
       onScroll(); // Run on load
+      
+      
+      // --- 3D Coverflow Carousel Logic ---
+      const carousel = document.getElementById("projects-carousel");
+      if (carousel) {
+        const slides = carousel.querySelectorAll(".project-card");
+        const prevButton = document.getElementById("prev-slide");
+        const nextButton = document.getElementById("next-slide");
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(slideIndex) {
+          // Wrap around logic
+          currentSlide = (slideIndex + totalSlides) % totalSlides;
+          
+          slides.forEach((slide, i) => {
+              slide.classList.remove('active-slide', 'prev-slide', 'next-slide', 'hidden-slide');
+              
+              if (i === currentSlide) {
+                  slide.classList.add('active-slide');
+              } else if (i === (currentSlide - 1 + totalSlides) % totalSlides) {
+                  slide.classList.add('prev-slide');
+              } else if (i === (currentSlide + 1) % totalSlides) {
+                  slide.classList.add('next-slide');
+              } else {
+                  slide.classList.add('hidden-slide');
+              }
+          });
+        }
+
+        prevButton.addEventListener("click", () => {
+          showSlide(currentSlide - 1);
+        });
+
+        nextButton.addEventListener("click", () => {
+          showSlide(currentSlide + 1);
+        });
+        
+        showSlide(0); // Initialize first slide
+      }
+
+      // --- Hero Draggable Cards ---
+      const hero = document.getElementById('hero');
+      if (hero) {
+        const floatingCards = hero.querySelectorAll('.floating-card');
+        let activeCard = null;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function startDrag(e) {
+          if (e.target.classList.contains('floating-card')) {
+            activeCard = e.target;
+            activeCard.classList.add('dragging');
+            
+            // Get the initial mouse position relative to the element
+            const rect = activeCard.getBoundingClientRect();
+            const event = e.touches ? e.touches[0] : e;
+            offsetX = event.clientX - rect.left;
+            offsetY = event.clientY - rect.top;
+
+            // We calculate position relative to the viewport, not the parent
+            // to avoid jumps if the parent is not (0,0)
+            offsetX = event.clientX - parseFloat(getComputedStyle(activeCard).left || rect.left);
+            offsetY = event.clientY - parseFloat(getComputedStyle(activeCard).top || rect.top);
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+          }
+        }
+
+        function drag(e) {
+          if (!activeCard) return;
+          e.preventDefault(); // Prevent scroll on touch
+
+          const event = e.touches ? e.touches[0] : e;
+          // New position is mouse position minus the initial offset
+          let newX = event.clientX - offsetX;
+          let newY = event.clientY - offsetY;
+
+          // Constrain to hero boundaries
+          const heroRect = hero.getBoundingClientRect();
+          const cardRect = activeCard.getBoundingClientRect();
+
+          if (newX < 0) newX = 0;
+          if (newY < 0) newY = 0;
+          if (newX + cardRect.width > heroRect.width) newX = heroRect.width - cardRect.width;
+          if (newY + cardRect.height > heroRect.height) newY = heroRect.height - cardRect.height;
+
+          activeCard.style.left = `${newX}px`;
+          activeCard.style.top = `${newY}px`;
+          // Remove initial positions so they don't conflict
+          activeCard.style.right = 'auto';
+          activeCard.style.bottom = 'auto';
+        }
+
+        function endDrag() {
+          if (activeCard) {
+            activeCard.classList.remove('dragging');
+            activeCard = null;
+          }
+          document.removeEventListener('mousemove', drag);
+          document.removeEventListener('touchmove', drag);
+          document.removeEventListener('mouseup', endDrag);
+          document.removeEventListener('touchend', endDrag);
+        }
+
+        hero.addEventListener('mousedown', startDrag);
+        hero.addEventListener('touchstart', startDrag);
+      }
     });
   </script>
 </body>
