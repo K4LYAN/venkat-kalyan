@@ -510,49 +510,49 @@
       margin-bottom: 1rem;
     }
 
-    /* --- NEW Tabbed Skills Section --- */
+    /* --- NEW Tabbed Skills Section (About) --- */
+    #about {
+        overflow: hidden; /* Contains the animated content */
+    }
     .skills-layout {
-        display: flex;
-        flex-direction: column; /* Stack on mobile */
+        display: grid;
+        grid-template-columns: 1fr; /* Stacked on mobile */
         gap: 2rem;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 1.5rem;
     }
 
     .skills-nav {
         display: flex;
         flex-direction: row; /* Horizontal on mobile */
-        overflow-x: auto;
         gap: 0.5rem;
-        padding-bottom: 1rem; /* Space for scrollbar */
-        flex-shrink: 0;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+         /* Hide scrollbar */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
     }
-    .skills-nav::-webkit-scrollbar { display: none; }
+    .skills-nav::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Opera */
+    }
 
-
-    .skill-tab-btn {
+    .skill-nav-btn {
         font-family: var(--font-mono);
         font-size: 0.9rem;
         color: var(--text-secondary);
-        background: transparent;
+        background: var(--bg-card);
         border: 1px solid var(--border);
         padding: 0.6rem 1rem;
         border-radius: 50px;
         cursor: pointer;
         transition: var(--transition);
         white-space: nowrap;
+        text-align: left;
     }
-
-    .skill-tab-btn:hover {
-        color: var(--text-primary);
+    .skill-nav-btn:hover {
         background: var(--bg-light);
+        color: var(--text-primary);
     }
-
-    .skill-tab-btn.active {
+    .skill-nav-btn.active {
         color: var(--bg-dark);
         background: var(--accent-green);
         border-color: var(--accent-green);
@@ -560,38 +560,37 @@
     }
 
     .skills-content-wrapper {
-        flex-grow: 1;
-        min-height: 150px; /* Give it some min-height */
+        position: relative;
+        min-height: 200px; /* Min height to prevent collapse */
     }
 
-    .skill-tab-content {
-        display: none; /* Hide all by default */
-        opacity: 0;
-        animation: fadeIn 0.5s ease forwards;
-    }
-
-    .skill-tab-content.active {
-        display: block; /* Show active tab */
-    }
-
-    @keyframes fadeIn {
-        to { opacity: 1; }
-    }
-
-    .skill-tags-grid {
+    .skills-content {
         display: flex;
         flex-wrap: wrap;
         gap: 0.75rem;
+        opacity: 0;
+        position: absolute; /* Stack for fade animation */
+        top: 0;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .skills-content.active {
+        opacity: 1;
+        position: relative; /* Take up space */
+        pointer-events: auto;
+        transform: translateY(0);
     }
 
     .skill-tag {
-        font-family: var(--font-sans);
-        font-weight: 500;
-        font-size: 0.95rem;
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
         color: var(--text-primary);
-        background: var(--bg-dark);
-        padding: 0.4rem 0.9rem;
+        background: var(--bg-card);
         border: 1px solid var(--border);
+        padding: 0.4rem 0.8rem;
         border-radius: var(--radius);
     }
 
@@ -710,7 +709,7 @@
       margin: 0;
     }
 
-    /* --- UPDATED Certifications Section (Simplified Grid) --- */
+    /* --- UPDATED Certifications Section (Custom Scrollbar) --- */
     #certifications { padding-bottom: 5rem; }
 
     .cert-controls {
@@ -728,21 +727,42 @@
       gap: 0.75rem;
       flex-grow: 1;
     }
-    
+
+    .cert-view-modes {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.3rem;
+      border-radius: 50px;
+    }
+
+    .cert-view-btn,
     .cert-filter-btn {
       font-family: var(--font-mono);
       font-size: 0.85rem;
       color: var(--text-secondary);
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background: transparent;
+      border: none;
       padding: 0.4rem 0.9rem;
       border-radius: 50px;
       cursor: pointer;
       transition: var(--transition);
     }
+    .cert-filter-btn {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+    }
+
+    .cert-view-btn:hover,
     .cert-filter-btn:hover {
       color: var(--text-primary);
       background-color: rgba(255, 255, 255, 0.05);
+    }
+    .cert-view-btn.active {
+        color: var(--bg-dark);
+        background: var(--accent-blue);
+        font-weight: 600;
     }
      .cert-filter-btn.active {
         color: var(--bg-dark);
@@ -751,11 +771,91 @@
         font-weight: 600;
     }
 
+    .cert-grid-wrapper {
+        position: relative;
+        padding-right: 60px; /* Space for new scrollbar */
+    }
+
+    .cert-scrollbar {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 5;
+    }
+    .cert-scroll-btn {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: var(--transition);
+        flex-shrink: 0;
+    }
+    .cert-scroll-btn:hover {
+        color: var(--text-primary);
+        border-color: var(--text-secondary);
+    }
+    .cert-scroll-btn .icon { width: 20px; height: 20px; }
+
+    .cert-scrollbar-track {
+        flex-grow: 1;
+        width: 2px;
+        background: var(--border);
+        margin: 0.5rem 0;
+        position: relative;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+    .cert-scrollbar-track::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        right: -10px;
+        top: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(var(--border) 0, var(--border) 1px, transparent 1px, transparent 10px);
+    }
+
+    .cert-scrollbar-thumb {
+        position: absolute;
+        left: -7px;
+        width: 16px;
+        background: var(--text-secondary);
+        border-radius: 8px;
+        cursor: grab;
+        transition: background-color var(--transition);
+    }
+    .cert-scrollbar-thumb:hover,
+    .cert-scrollbar-thumb.dragging {
+        background: var(--accent-blue);
+        cursor: grabbing;
+    }
+
     .cert-grid-container {
       display: grid;
       gap: 1.5rem;
-      grid-template-columns: repeat(3, 1fr); /* 3 columns */
+      grid-template-columns: repeat(3, 1fr);
+      height: 600px;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      transition: grid-template-columns var(--transition);
     }
+    .cert-grid-container::-webkit-scrollbar { display: none; }
+
+    .cert-grid-container.view-focused { grid-template-columns: repeat(2, 1fr); }
+    .cert-grid-container.view-informative { grid-template-columns: repeat(4, 1fr); }
 
     .cert-card {
         border-radius: var(--radius);
@@ -802,6 +902,8 @@
       background-position: center;
       transition: height var(--transition);
     }
+    .view-focused .cert-card-image { height: 200px; }
+    .view-informative .cert-card-image { height: 120px; }
 
     .cert-card-content { padding: 1rem; }
 
@@ -816,6 +918,7 @@
       text-overflow: ellipsis;
        transition: font-size var(--transition);
     }
+    .view-informative .cert-card-content h3 { font-size: 0.85rem; }
 
     .cert-card-content p {
       font-size: 0.85rem;
@@ -823,6 +926,7 @@
       margin-bottom: 0;
       transition: font-size var(--transition);
     }
+    .view-informative .cert-card-content p { font-size: 0.75rem; }
 
     /* --- Project Card Layout --- */
     #projects {
@@ -1097,27 +1201,15 @@
         .career-grid {
             grid-template-columns: 1fr 1fr;
         }
-
         .skills-layout {
-            flex-direction: row; /* Side-by-side on desktop */
-            padding: 2rem;
-            gap: 2rem;
+             grid-template-columns: 250px 1fr; /* Vertical nav on desktop */
+             gap: 3rem;
         }
         .skills-nav {
-            flex-direction: column; /* Vertical nav on desktop */
+            flex-direction: column; /* Vertical */
             overflow-x: visible;
             padding-bottom: 0;
-            border-right: 1px solid var(--border);
-            padding-right: 1.5rem;
-        }
-        .skill-tab-btn {
-            border: none;
-            border-radius: var(--radius);
-            text-align: left;
-        }
-        .skill-tab-btn.active {
-            background: var(--bg-light);
-            color: var(--accent-green);
+            margin-bottom: 0;
         }
     }
 
@@ -1138,6 +1230,13 @@
 
       /* Certification Grid */
       .cert-grid-container { grid-template-columns: repeat(2, 1fr); }
+      .cert-grid-container.view-focused { grid-template-columns: 1fr; }
+      .cert-grid-container.view-informative { grid-template-columns: repeat(3, 1fr); }
+      .cert-grid-wrapper { padding-right: 50px; }
+      .cert-scrollbar { width: 36px; }
+      .cert-scroll-btn { width: 32px; height: 32px; }
+      .cert-scrollbar-thumb { left: -6px; width: 14px; }
+      .cert-scrollbar-track::before { left: -8px; right: -8px; }
     }
 
     @media (max-width: 768px) {
@@ -1185,16 +1284,33 @@
           font-weight: 600;
           color: var(--text-primary);
       }
-      
-      /* Skills Section */
-      .skills-layout {
-          padding: 1rem;
-      }
-
 
       /* Certifications Carousel */
-      .cert-grid-container { grid-template-columns: repeat(2, 1fr); }
-       .cert-controls { flex-direction: column; align-items: center; }
+      .cert-grid-container { grid-template-columns: repeat(2, 1fr); height: 500px; }
+       .cert-grid-container.view-focused { grid-template-columns: 1fr; }
+       .cert-grid-container.view-informative { grid-template-columns: repeat(2, 1fr); }
+        .cert-controls { flex-direction: column; align-items: center; }
+        .cert-grid-wrapper { padding-right: 0; }
+        .cert-scrollbar {
+            position: static;
+            width: 100%;
+            height: 40px;
+            flex-direction: row;
+            margin-top: 1rem;
+        }
+        .cert-scrollbar-track {
+            height: 2px;
+            width: 100%;
+            margin: 0 0.5rem;
+        }
+        .cert-scrollbar-track::before {
+             left: 0; right: 0; top: -10px; bottom: -10px;
+             background-image: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 10px);
+        }
+        .cert-scrollbar-thumb {
+            top: -7px;
+            height: 16px;
+        }
 
       /* Projects Carousel */
       .carousel-wrapper { height: 450px; }
@@ -1217,6 +1333,8 @@
 
     @media (max-width: 500px) {
         .cert-grid-container { grid-template-columns: 1fr; }
+         .cert-grid-container.view-informative { grid-template-columns: 1fr; }
+         .cert-grid-container.view-focused { grid-template-columns: 1fr; }
     }
 
     @keyframes blink {
@@ -1251,16 +1369,11 @@
     <symbol id="icon-cloud" viewBox="0 0 24 24"><path fill="currentColor" d="M19.35 10.04C18.67 6.6 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5c0-2.64-2.05-4.78-4.65-4.96zM17 18H6c-2.21 0-4-1.79-4-4c0-2.05 1.53-3.76 3.56-3.97l1.07-.11l.5-.95C8.08 10.3 9.94 9 12 9c2.65 0 4.8 2.01 4.98 4.6l.16 2.4H17c1.66 0 3 1.34 3 3s-1.34 3-3 3z"/></symbol>
     <symbol id="icon-server" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v4H4zm0 6h16v4H4zm0 6h16v4H4z"/></symbol>
     <symbol id="icon-bug" viewBox="0 0 24 24"><path fill="currentColor" d="M19 8h-1.81c-.45-1.77-1.97-3-3.72-3c-1.1 0-2.1.46-2.88 1.21L10 5.5V4h-2v3.6l-1.41 1.41C6.21 9.4 6 9.7 6 10v1H4v2h2v1c0 .55.45 1 1 1h1v.65c-.63.24-1.18.67-1.6 1.22L6 18.5l1.41 1.41l1.59-1.59C9.64 18.78 10.27 19 11 19c.34 0 .67-.04 1-.1c.09.7.38 1.35.8 1.9H11v-2h2v2h-1.2c-.41-.54-.7-1.19-.79-1.9c.33.06.66.1 1 .1c.73 0 1.36-.22 1.9-.58l1.59 1.59l1.41-1.41l-1.4-1.63c-.42-.55-.97-.98-1.6-1.22V15h1c.55 0 1-.45 1-1v-1h2v-2h-2v-1c0-.3-.21-.6-.59-.81L16.4 7.6V4h-2v1.5l-.59.71C13.1 5.46 12.1 5 11 5c-1.75 0-3.27 1.23-3.72 3H5.5v2H4V8h1.5v2H4V8zM10 13H8v-2h2v2zm6 0h-2v-2h2v2z"/></symbol>
-    <symbol id="icon-resume" viewBox="0 0 24 24"> <!-- Added Resume Icon -->
-       <path fill="currentColor" d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm6 7V3.5L17.5 9H12zM9 13v-2h6v2H9zm6 4v-2H9v2h6zm-6 4v-2h4v2H9z"/>
-    </symbol>
-    <!-- New Skill Icons -->
-    <symbol id="icon-java" viewBox="0 0 24 24"><path fill="currentColor" d="M5.31 16.32q.15.6.51 1.02a1.8 1.8 0 0 0 1.08.57q.54.1 1.11.1c.6 0 1.09-.08 1.5-.23c.4-.15.71-.38.9-.69c.19-.31.29-.68.29-1.1c0-.49-.13-.9-.39-1.24c-.26-.34-.64-.51-1.12-.51c-.42 0-.78.11-1.07.34c-.29.22-.5.5-.63.84l-.38.96h-1.88zm3.28 1.52c-.31-.02-.59-.1-.82-.24a.86.86 0 0 1-.52-.69c0-.23.07-.42.21-.57c.14-.15.34-.23.6-.23c.23 0 .44.07.6.2c.17.14.28.32.35.54c.07.22.1.48.1.78c0 .24-.03.45-.08.62c-.06.17-.14.3-.25.39c-.1.09-.23.14-.37.16M19.32 15h-2.13v-1.1h2.13zm0-2.1h-2.13V9.7h2.13zM9.46 11.2h1.88l.38.96c.13.34.34.62.63.84c.29.23.65.34 1.07.34c.48 0 .86-.17 1.12-.51c.26-.34.39-.75.39-1.24c0-.42-.1-.79-.29-1.1c-.19-.31-.5-.54-.9-.69c-.4-.15-.89-.23-1.5-.23c-.57 0-1.06.09-1.48.28c-.42.19-.75.45-1 .79l-1.06-1.63c.4-.39.84-.7 1.3-.92c.47-.22 1-.36 1.56-.42c.56-.06 1.1-.06 1.63-.02c.53.04 1.04.13 1.52.28c.48.15.9.36 1.25.64c.35.28.62.62.82 1.04c.19.4.29.86.29 1.36c0 .49-.07.95-.21 1.37c-.14.42-.35.8-.62 1.1c-.27.32-.6.58-.97.77c-.37.19-.8.31-1.28.37c-.47.06-.97.09-1.48.09c-.66 0-1.27-.08-1.8-.23c-.54-.15-1-.38-1.38-.68c-.37-.3-.66-.67-.85-1.1c-.2-.43-.3-.92-.3-1.45c0-.4.07-.78.2-1.12c.14-.34.33-.66.58-.93m10.15 4.38v1.94h-2.13v-1.47l-1.63.15v1.32h-2.13v-4.5h2.13v1.9h1.63v-1.9h2.13z"/></symbol>
-    <symbol id="icon-python" viewBox="0 0 24 24"><path fill="currentColor" d="M19.03 7.28c.45-.55.33-1.36-.26-1.65l-1.41-.69a.9.9 0 0 0-1.05.34l-2.07 3.58h-3.32v-.3c0-.9-.72-1.63-1.62-1.63V3c-.9 0-1.63.73-1.63 1.63v4.14H3.97c-.9 0-1.63.73-1.63 1.63v3.25c0 .9.73 1.63 1.63 1.63h3.7v3.31l3.58 2.07c.3.18.66.18.96 0l.34-1.05v-1.4l-.69-1.41c-.29-.6-.18-1.28.26-1.65l3.8-3.8c.45-.44.62-1.07.45-1.69l-.3-1.06zm-6.04 7.19v1.63c0 .9-.73 1.63-1.63 1.63h-3.25c-.9 0-1.63-.73-1.63-1.63v-3.7H3.1c-.9 0-1.63-.73-1.63-1.63V7.72c0-.9.73-1.63 1.63-1.63h4.14v3.31c0 .9.73 1.63 1.63 1.63h3.58l3.8 3.8c.45.44.62 1.07.45 1.69l-.3 1.06zm3.8-3.8c.45-.55.33-1.36-.26-1.65l-1.41-.69a.9.9 0 0 0-1.05.34l-2.07 3.58h-3.32v-.3c0-.9-.72-1.63-1.62-1.63V3c-.9 0-1.63.73-1.63 1.63v4.14H3.97c-.9 0-1.63.73-1.63 1.63v3.25c0 .9.73 1.63 1.63 1.63h3.7v3.31l3.58 2.07c.3.18.66.18.96 0l.34-1.05v-1.4l-.69-1.41c-.29-.6-.18-1.28.26-1.65l3.8-3.8c.45-.44.62-1.07.45-1.69l-.3-1.06zm-6.04 7.19v1.63c0 .9-.73 1.63-1.63 1.63h-3.25c-.9 0-1.63-.73-1.63-1.63v-3.7H3.1c-.9 0-1.63-.73-1.63-1.63V7.72c0-.9.73-1.63 1.63-1.63h4.14v3.31c0 .9.73 1.63 1.63 1.63h3.58l3.8 3.8c.45.44.62 1.07.45 1.69l-.3 1.06z"/></symbol>
-    <symbol id="icon-nmap" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8zm-4.5-9.5l2.5 5l1.5-3.5l1.5 3.5l2.5-5h-8z"/></symbol>
-    <symbol id="icon-burp" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8zM10 8h4v8h-4V8z"/></symbol>
-    <symbol id="icon-sql" viewBox="0 0 24 24"><path fill="currentColor" d="M11.5 20c-3.86 0-7-1.79-7-4V8c0-2.21 3.14-4 7-4s7 1.79 7 4v8c0 2.21-3.14 4-7 4M6 9.67c.64.19 1.37.33 2.17.33c1.07 0 2.09-.2 2.96-.56V8.5C10.27 8.8 9.19 9 8.17 9c-.8 0-1.53-.14-2.17-.33M4.5 8c.64.53 1.5 1 2.5 1.33V10c-1-.33-1.86-.8-2.5-1.33V8m0 3.33C5.36 11.8 6.23 12.27 7.17 12.6v.67c-1-.33-1.86-.8-2.5-1.33v-.67M4.5 13v1.33C5.36 14.8 6.23 15.27 7.17 15.6v.67c-1-.33-1.86-.8-2.5-1.33V13m4.83 5c-.87-.36-1.8-.56-2.96-.56c-.8 0-1.53.14-2.17.33v1.33c.64-.19 1.37-.33 2.17-.33c1.07 0 2.09.2 2.96.56v-1.33M11 8.5v1.94c.87.36 1.8.56 2.96.56c.8 0 1.53-.14 2.17-.33V9c-.64.19-1.37.33-2.17.33c-1.07 0-2.09-.2-2.96-.56m3.33-1.83C13.69 6.2 12.83 5.73 11.89 5.4v-.67c1 .33 1.86.8 2.5 1.33v.67M16.67 8v.67c-1-.33-1.86-.8-2.5-1.33V8c.64.53 1.5 1 2.5 1.33m0 2.67v.67c-1-.33-1.86-.8-2.5-1.33v-.67c.64.53 1.5 1 2.5 1.33m0 3.33v.67c-1-.33-1.86-.8-2.5-1.33v-.67c.64.53 1.5 1 2.5 1.33M11 18.67v1.33c.87-.36 1.8-.56 2.96-.56c.8 0 1.53.14 2.17.33v-1.33c-.64.19-1.37.33-2.17.33c-1.07 0-2.09-.2-2.96-.56"/></symbol>
-    <symbol id="icon-react" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.001c-4.411 0-8 3.589-8 8s3.589 8 8 8s8-3.589 8-8s-3.589-8-8-8m0 14c-3.309 0-6-2.691-6-6s2.691-6 6-6s6 2.691 6 6s-2.691 6-6 6"/><path fill="currentColor" d="M12.001 8.001a3.99 3.99 0 0 0-3.99 3.99c0 .048.01.096.012.143l1.996-.001c-.002-.047-.008-.095-.008-.142a2.004 2.004 0 0 1 2-2.004c.047 0 .095.006.142.008l.001-1.996a3.99 3.99 0 0 0-.142-.012z"/><path fill="currentColor" d="M14.004 12.002a2.004 2.004 0 0 1-2.004 2.004c-.047 0-.095-.006-.142-.008l-.001 1.996c.047.006.095.012.143.012a3.99 3.99 0 0 0 3.99-3.99c0-.048-.01-.096-.012-.143l-1.996.001c.002.047.008.095.008.142zM8.001 12c0-.047-.006-.095-.008-.142l-1.996.001c.006.047.012.095.012.143a3.99 3.99 0 0 0 3.99 3.99c.048 0 .096-.01.143-.012l.001-1.996a2.004 2.004 0 0 1-2.004-2.004c0-.047.006-.095.008-.142zM15.86 11.993c.006-.047.012-.095.012-.143a3.99 3.99 0 0 0-3.99-3.99c-.048 0-.096.01-.143.012l-.001 1.996c.047-.006.095-.008.142-.008a2.004 2.004 0 0 1 2.004 2.004c0 .047-.006.095-.008.142l1.996-.001z"/></symbol>
+    <symbol id="icon-resume" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm6 7V3.5L17.5 9H12zM9 13v-2h6v2H9zm6 4v-2H9v2h6zm-6 4v-2h4v2H9z"/></symbol>
+    <symbol id="icon-nmap" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208zm-72-232h144v48H184zm-48 72h192v48H136zm48 72h144v48H184z"/></symbol>
+    <symbol id="icon-java" viewBox="0 0 384 512"><path fill="currentColor" d="M27.7 33.1C12.4 51.5 0 74.8 0 100.8v310.4c0 26 12.4 49.3 27.7 67.7L160 346.1V165.9L27.7 33.1zM356.3 33.1L224 165.9v180.2l132.3 132.6c15.3-18.4 27.7-41.7 27.7-67.7V100.8c0-26-12.4-49.3-27.7-67.7zM192 143.2L311.1 33.1C290.7 12.4 260.6 0 227.6 0H156.4c-33 0-63.1 12.4-83.5 33.1L192 143.2zM192 368.8L72.9 478.9C93.3 499.6 123.4 512 156.4 512h71.2c33 0 63.1-12.4 83.5-33.1L192 368.8z"/></svg>
+    <symbol id="icon-python" viewBox="0 0 448 512"><path fill="currentColor" d="M439.8 200.5c-7.7-30.9-22.3-54.2-47.5-76.4C361.3 98.4 328.6 80 288.6 80H160c-44.2 0-80 35.8-80 80v48c0 17.7 14.3 32 32 32s32-14.3 32-32v-48c0-8.8 7.2-16 16-16h128.6c30.8 0 50.8 13.1 63.2 30.5c10.7 15.2 16.2 33.2 14.9 52.4c-1.7 24.3-11.5 45.4-28.7 63.3c-17.5 18.2-40.2 27.8-66.4 27.8H176c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h88.6c30.8 0 50.8 13.1 63.2 30.5c10.7 15.2 16.2 33.2 14.9 52.4c-1.7 24.3-11.5 45.4-28.7 63.3c-17.5 18.2-40.2 27.8-66.4 27.8H160c-44.2 0-80 35.8-80 80v48c0 17.7 14.3 32 32 32s32-14.3 32-32v-48c0-8.8 7.2-16 16-16h128.6c39.6 0 74.8-15.8 98.7-43.6c25.2-28.9 36.6-63.5 35.4-100.6c-1.2-36.9-15.8-69.1-40.9-96.2C370.7 218.4 338.4 200 298.6 200H176c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h122.6c39.6 0 74.8-15.8 98.7-43.6c25.2-28.9 36.6-63.5 35.4-100.6z"/></symbol>
+    <symbol id="icon-sql" viewBox="0 0 512 512"><path fill="currentColor" d="M480 32H32C14.33 32 0 46.33 0 64v384c0 17.67 14.33 32 32 32h448c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zM288 384H160v-64h128v64zm0-128H160v-64h128v64zm96 128h-64v-64h64v64zm0-128h-64v-64h64v64zm0-128h-64v-64h64v64z"/></symbol>
   </svg>
 
   <!-- Sticky Nav -->
@@ -1268,19 +1381,19 @@
     <div class="nav-container">
       <!-- Desktop Links -->
       <div class="nav-links nav-left">
-        <a href="#about" class="active">About</a>
-        <a href="#career">Career</a>
+        <a href="#about">About</a>
       </div>
       <div class="nav-brand">
         <a href="#hero">Kalyan</a>
       </div>
       <div class="nav-links nav-right">
-        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <a href="resume.pdf" target="_blank" class="resume-link">Resume</a>
       </div>
       <!-- Mobile Links -->
       <div class="nav-links mobile-nav">
-         <a href="#hero" class="mobile-brand-link active">Kalyan</a>
+         <a href="#hero" >Kalyan</a>
+         <a href="resume.pdf" target="_blank" class="resume-link">Resume</a>
       </div>
     </div>
   </nav>
@@ -1330,7 +1443,7 @@
   </header>
 
   <main>
-    <!-- UPDATED About Section (Tabbed Skills) -->
+    <!-- UPDATED Skills Section (Tabbed) -->
     <section id="about">
       <div class="container">
         <div class="section-title-wrapper">
@@ -1342,69 +1455,66 @@
         </div>
 
         <div class="skills-layout">
-          <!-- Skill Navigation (Tabs) -->
+          <!-- Tab Navigation -->
           <nav class="skills-nav" id="skills-nav">
-            <button class="skill-tab-btn active" data-tab="security">Security Tools</button>
-            <button class="skill-tab-btn" data-tab="dev">Languages & Dev</button>
-            <button class="skill-tab-btn" data-tab="frameworks">Frameworks</button>
-            <button class="skill-tab-btn" data-tab="infra">Cloud & Infra</button>
+            <button class="skill-nav-btn active" data-tab="security">Security Tools</button>
+            <button class="skill-nav-btn" data-tab="monitoring">SIEM & Monitoring</button>
+            <button class="skill-nav-btn" data-tab="languages">Languages</button>
+            <button class="skill-nav-btn" data-tab="frameworks">Frameworks</button>
+            <button class="skill-nav-btn" data-tab="cloud">Cloud & Virt</button>
           </nav>
 
-          <!-- Skill Content -->
+          <!-- Tab Content -->
           <div class="skills-content-wrapper">
-            <!-- Security Tools -->
-            <div class="skill-tab-content active" id="tab-security">
-              <div class="skill-tags-grid">
-                <span class="skill-tag">Burp Suite</span>
-                <span class="skill-tag">Nmap</span>
-                <span class="skill-tag">Metasploit</span>
-                <span class="skill-tag">Wireshark</span>
-                <span class="skill-tag">SQLMap</span>
-                <span class="skill-tag">Hydra</span>
-                <span class="skill-tag">John the Ripper</span>
-                <span class="skill-tag">Hashcat</span>
-                <span class="skill-tag">FTK Imager</span>
-                <span class="skill-tag">Wazuh</span>
-                <span class="skill-tag">Splunk</span>
-                <span class="skill-tag">ELK Stack</span>
-                <span class="skill-tag">OWASP Top 10</span>
-                <span class="skill-tag">MITRE ATT&CK</span>
-              </div>
+            <div class="skills-content active" id="tab-security">
+              <span class="skill-tag">Burp Suite</span>
+              <span class="skill-tag">Nmap</span>
+              <span class="skill-tag">Metasploit</span>
+              <span class="skill-tag">Wireshark</span>
+              <span class="skill-tag">SQLMap</span>
+              <span class="skill-tag">Hydra</span>
+              <span class="skill-tag">John the Ripper</span>
+              <span class="skill-tag">Hashcat</span>
+              <span class="skill-tag">Aircrack-ng</span>
+              <span class="skill-tag">Wifite</span>
+              <span class="skill-tag">Bettercap</span>
+              <span class="skill-tag">Recon-ng</span>
+              <span class="skill-tag">FTK Imager</span>
+              <span class="skill-tag">VirusTotal</span>
+              <span class="skill-tag">CyberChef</span>
+              <span class="skill-tag">OWASP Top 10</span>
+              <span class="skill-tag">MITRE ATT&CK</span>
+              <span class="skill-tag">NIST Guidelines</span>
             </div>
-            <!-- Languages & Dev -->
-            <div class="skill-tab-content" id="tab-dev">
-              <div class="skill-tags-grid">
-                <span class="skill-tag">Java</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">SQL</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">HTML5</span>
-                <span class="skill-tag">CSS3</span>
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">Maven</span>
-              </div>
+            <div class="skills-content" id="tab-monitoring">
+              <span class="skill-tag">Wazuh</span>
+              <span class="skill-tag">Splunk (basic)</span>
+              <span class="skill-tag">ELK Stack</span>
             </div>
-            <!-- Frameworks -->
-            <div class="skill-tab-content" id="tab-frameworks">
-              <div class="skill-tags-grid">
-                <span class="skill-tag">Spring Boot</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">REST APIs</span>
-                <span class="skill-tag">WordPress</span>
-                <span class="skill-tag">Figma</span>
-              </div>
+            <div class="skills-content" id="tab-languages">
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3</span>
             </div>
-            <!-- Cloud & Infra -->
-            <div class="skill-tab-content" id="tab-infra">
-              <div class="skill-tags-grid">
-                <span class="skill-tag">Amazon Web Services (AWS)</span>
-                <span class="skill-tag">VirtualBox</span>
-                <span class="skill-tag">noVNC</span>
-              </div>
+            <div class="skills-content" id="tab-frameworks">
+              <span class="skill-tag">Spring Boot</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">WordPress</span>
+              <span class="skill-tag">Figma</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">Maven</span>
+            </div>
+            <div class="skills-content" id="tab-cloud">
+              <span class="skill-tag">Amazon Web Services (AWS)</span>
+              <span class="skill-tag">VirtualBox</span>
+              <span class="skill-tag">noVNC</span>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -1432,7 +1542,6 @@
                   Focused on cybersecurity, network defense, blockchain, and cloud architecture.
                 </p>
               </div>
-              <!-- Add more education items if needed -->
             </div>
           </div>
 
@@ -1447,7 +1556,6 @@
                   Worked on real-time secure portal development, vulnerability assessment, and supported R&D teams.
                 </p>
               </div>
-              <!-- Add more experience items if needed -->
             </div>
           </div>
         </div>
@@ -1541,14 +1649,14 @@
       </div>
     </section>
 
-    <!-- UPDATED Certifications Section (Simplified Grid) -->
+    <!-- UPDATED Certifications Section -->
     <section id="certifications">
         <div class="container">
             <div class="section-title-wrapper">
               <svg class="icon"><use href="#icon-award" /></svg>
               <div>
                 <h2 style="color: var(--accent-blue);">Certifications</h2>
-                <p>My professional credentials</p>
+                <p>My professional credentials (Filter and switch view)</p>
               </div>
             </div>
 
@@ -1562,318 +1670,339 @@
                   <button class="cert-filter-btn" data-filter="nptel">NPTEL</button>
                   <button class="cert-filter-btn" data-filter="other">Other</button>
                 </div>
+                <div class="cert-view-modes" id="cert-view-modes">
+                    <button class="cert-view-btn" data-view="focused">Focused</button>
+                    <button class="cert-view-btn active" data-view="balanced">Balanced</button>
+                    <button class="cert-view-btn" data-view="informative">Informative</button>
+                </div>
             </div>
 
-            <div class="cert-grid-container" id="cert-grid-container">
-                <!-- Cert 1 -->
-                <a href="#" class="cert-card" id="cert-1" data-category="other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Data Analytic Process Altrex</h3>
-                        <p>AICTE</p>
+            <div class="cert-grid-wrapper">
+                <!-- Custom Scrollbar -->
+                <div class="cert-scrollbar" id="cert-scrollbar">
+                    <button class="cert-scroll-btn" id="cert-scroll-up">
+                        <svg class="icon"><use href="#icon-up" /></svg>
+                    </button>
+                    <div class="cert-scrollbar-track" id="cert-scrollbar-track">
+                        <div class="cert-scrollbar-thumb" id="cert-scrollbar-thumb"></div>
                     </div>
-                </a>
-                <!-- Cert 2 -->
-                <a href="#" class="cert-card" id="cert-2" data-category="cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Kali Linux Fundamentals</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 3 -->
-                <a href="#" class="cert-card" id="cert-3" data-category="cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Wire Shark for Network Monitoring</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 4 -->
-                <a href="#" class="cert-card" id="cert-4" data-category="cybersecurity cloud">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Cloud Architecting</h3>
-                        <p>AWS Academy Graduate</p>
-                    </div>
-                </a>
-                <!-- Cert 5 -->
-                <a href="#" class="cert-card" id="cert-5" data-category="cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Cryptography</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 6 -->
-                <a href="#" class="cert-card" id="cert-6" data-category="cybersecurity development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Protection from Browser Attacks</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 7 -->
-                <a href="#" class="cert-card" id="cert-7" data-category="cybersecurity development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Threats to Websites</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 8 -->
-                <a href="#" class="cert-card" id="cert-8" data-category="cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Securing Android Devices</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 9 -->
-                <a href="#" class="cert-card" id="cert-9" data-category="cybersecurity other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Cyber Security Internship (6-week)</h3>
-                        <p>ExcelR Edtech & APSCHE</p>
-                    </div>
-                </a>
-                <!-- Cert 10 -->
-                <a href="#" class="cert-card" id="cert-10" data-category="development other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Web Development Internship</h3>
-                        <p>BHARAT INTERN</p>
-                    </div>
-                </a>
-                <!-- Cert 11 -->
-                <a href="#" class="cert-card" id="cert-11" data-category="cybersecurity other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Cybersecurity Internship (4-week)</h3>
-                        <p>Pinnacle Labs</p>
-                    </div>
-                </a>
-                <!-- Cert 12 -->
-                <a href="#" class="cert-card" id="cert-12" data-category="development other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>My APSSDC, My Website</h3>
-                        <p>GUVI's Skill-A-Thon</p>
-                    </div>
-                </a>
-                <!-- Cert 13 -->
-                <a href="#" class="cert-card" id="cert-13" data-category="cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Demystifying Android App Security</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 14 -->
-                <a href="#" class="cert-card" id="cert-14" data-category="ibm other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Employability Skills Internship (6-week)</h3>
-                        <p>IBM SkillsBuild, APSSDC, Edunet</p>
-                    </div>
-                </a>
-                <!-- Cert 15 -->
-                <a href="#" class="cert-card" id="cert-15" data-category="development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>HTML5</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 16 -->
-                <a href="#" class="cert-card" id="cert-16" data-category="development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>TypeScript</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 17 -->
-                <a href="#" class="cert-card" id="cert-17" data-category="other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Working with tables in Excel 365</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 18 -->
-                <a href="#" class="cert-card" id="cert-18" data-category="cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Ethical Hacker SQL Injection</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 19 -->
-                <a href="#" class="cert-card" id="cert-19" data-category="development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>JavaScript</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 20 -->
-                <a href="#" class="cert-card" id="cert-20" data-category="other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Digital Transformation Insights</h3>
-                        <p>Healthcare Providers</p>
-                    </div>
-                </a>
-                <!-- Cert 21 -->
-                <a href="#" class="cert-card" id="cert-21" data-category="other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Understanding Bots Chatbot</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 22 -->
-                <a href="#" class="cert-card" id="cert-22" data-category="other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Taking the Lead with Motivation</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 23 -->
-                <a href="#" class="cert-card" id="cert-23" data-category="other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Coaching for Success</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 24 -->
-                <a href="#" class="cert-card" id="cert-24" data-category="other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>AI Human-computer Interaction</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 25 -->
-                <a href="#" class="cert-card" id="cert-25" data-category="development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>Angular</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 26 -->
-                <a href="#" class="cert-card" id="cert-26" data-category="development cloud">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>DevOps: CI/CD</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 27 -->
-                <a href="#" class="cert-card" id="cert-27" data-category="development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>DevOps: Agile & Extreme Programming</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 28 -->
-                <a href="#" class="cert-card" id="cert-28" data-category="development">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>DevOps: Agile Software Development</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 29 -->
-                <a href="#" class="cert-card" id="cert-29" data-category="ibm other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>IBM edX: Software Engineer – ML</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 30 -->
-                <a href="#" class="cert-card" id="cert-30" data-category="ibm other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>IBM edX: Software Engineer – ML</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 31 -->
-                <a href="#" class="cert-card" id="cert-31" data-category="ibm other">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>IBM edX: AI and Data Science</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 32 -->
-                <a href="#" class="cert-card" id="cert-32" data-category="nptel other cloud">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>NPTEL: Intro to Industry 4.0 & IIOT</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 33 -->
-                <a href="#" class="cert-card" id="cert-33" data-category="nptel cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>NPTEL: Cyber Security and Privacy</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- Cert 34 -->
-                <a href="#" class="cert-card" id="cert-34" data-category="nptel cybersecurity">
-                    <div class="cert-card-image"></div>
-                    <div class="cert-card-content">
-                        <h3>NPTEL: Blockchain</h3>
-                        <p>Certificate</p>
-                    </div>
-                </a>
-                <!-- --- ALL 34 CERTIFICATES (STYLES) --- -->
-                <style>
-                    #cert-1 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Alteryx); }
-                    #cert-2 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Kali+Linux); }
-                    #cert-3 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Wireshark); }
-                    #cert-4 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=AWS+Cloud); }
-                    #cert-5 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=Cryptography); }
-                    #cert-6 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Browser+Attacks); }
-                    #cert-7 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Website+Threats); }
-                    #cert-8 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Android+Security); }
-                    #cert-9 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=ExcelR); }
-                    #cert-10 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=BHARAT+INTERN); }
-                    #cert-11 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Pinnacle+Labs); }
-                    #cert-12 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=GUVI); }
-                    #cert-13 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Android+Security); }
-                    #cert-14 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=IBM+SkillsBuild); }
-                    #cert-15 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=HTML5); }
-                    #cert-16 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=TypeScript); }
-                    #cert-17 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Excel+365); }
-                    #cert-18 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=SQL+Injection); }
-                    #cert-19 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=JavaScript); }
-                    #cert-20 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=Healthcare+IT); }
-                    #cert-21 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Chatbots); }
-                    #cert-22 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Motivation); }
-                    #cert-23 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Coaching); }
-                    #cert-24 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=AI+HCI); }
-                    #cert-25 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=Angular); }
-                    #cert-26 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=DevOps+CI/CD); }
-                    #cert-27 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=DevOps+Agile); }
-                    #cert-28 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=DevOps+Agile); }
-                    #cert-29 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=IBM+edX+ML); }
-                    #cert-30 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=IBM+edX+ML); }
-                    #cert-31 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=IBM+edX+AI); }
-                    #cert-32 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=NPTEL+IIOT); }
-                    #cert-33 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=NPTEL+Cybersecurity); }
-                    #cert-34 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=NPTEL+Blockchain); }
-                  </style>
+                    <button class="cert-scroll-btn" id="cert-scroll-down">
+                         <svg class="icon"><use href="#icon-down" /></svg>
+                    </button>
+                </div>
+
+                <!-- Certification Grid -->
+                <div class="cert-grid-container view-balanced" id="cert-grid-container">
+                    <!-- Cert 1 -->
+                    <a href="#" class="cert-card" id="cert-1" data-category="other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Data Analytic Process Altrex</h3>
+                            <p>AICTE</p>
+                        </div>
+                    </a>
+                    <!-- Cert 2 -->
+                    <a href="#" class="cert-card" id="cert-2" data-category="cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Kali Linux Fundamentals</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 3 -->
+                    <a href="#" class="cert-card" id="cert-3" data-category="cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Wire Shark for Network Monitoring</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 4 -->
+                    <a href="#" class="cert-card" id="cert-4" data-category="cybersecurity cloud">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Cloud Architecting</h3>
+                            <p>AWS Academy Graduate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 5 -->
+                    <a href="#" class="cert-card" id="cert-5" data-category="cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Cryptography</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 6 -->
+                    <a href="#" class="cert-card" id="cert-6" data-category="cybersecurity development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Protection from Browser Attacks</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 7 -->
+                    <a href="#" class="cert-card" id="cert-7" data-category="cybersecurity development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Threats to Websites</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 8 -->
+                    <a href="#" class="cert-card" id="cert-8" data-category="cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Securing Android Devices</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 9 -->
+                    <a href="#" class="cert-card" id="cert-9" data-category="cybersecurity other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Cyber Security Internship (6-week)</h3>
+                            <p>ExcelR Edtech & APSCHE</p>
+                        </div>
+                    </a>
+                    <!-- Cert 10 -->
+                    <a href="#" class="cert-card" id="cert-10" data-category="development other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Web Development Internship</h3>
+                            <p>BHARAT INTERN</p>
+                        </div>
+                    </a>
+                    <!-- Cert 11 -->
+                    <a href="#" class="cert-card" id="cert-11" data-category="cybersecurity other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Cybersecurity Internship (4-week)</h3>
+                            <p>Pinnacle Labs</p>
+                        </div>
+                    </a>
+                    <!-- Cert 12 -->
+                    <a href="#" class="cert-card" id="cert-12" data-category="development other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>My APSSDC, My Website</h3>
+                            <p>GUVI's Skill-A-Thon</p>
+                        </div>
+                    </a>
+                    <!-- Cert 13 -->
+                    <a href="#" class="cert-card" id="cert-13" data-category="cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Demystifying Android App Security</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 14 -->
+                    <a href="#" class="cert-card" id="cert-14" data-category="ibm other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Employability Skills Internship (6-week)</h3>
+                            <p>IBM SkillsBuild, APSSDC, Edunet</p>
+                        </div>
+                    </a>
+                    <!-- Cert 15 -->
+                    <a href="#" class="cert-card" id="cert-15" data-category="development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>HTML5</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 16 -->
+                    <a href="#" class="cert-card" id="cert-16" data-category="development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>TypeScript</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 17 -->
+                    <a href="#" class="cert-card" id="cert-17" data-category="other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Working with tables in Excel 365</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 18 -->
+                    <a href="#" class="cert-card" id="cert-18" data-category="cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Ethical Hacker SQL Injection</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 19 -->
+                    <a href="#" class="cert-card" id="cert-19" data-category="development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>JavaScript</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 20 -->
+                    <a href="#" class="cert-card" id="cert-20" data-category="other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Digital Transformation Insights</h3>
+                            <p>Healthcare Providers</p>
+                        </div>
+                    </a>
+                    <!-- Cert 21 -->
+                    <a href="#" class="cert-card" id="cert-21" data-category="other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Understanding Bots Chatbot</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 22 -->
+                    <a href="#" class="cert-card" id="cert-22" data-category="other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Taking the Lead with Motivation</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 23 -->
+                    <a href="#" class="cert-card" id="cert-23" data-category="other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Coaching for Success</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 24 -->
+                    <a href="#" class="cert-card" id="cert-24" data-category="other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>AI Human-computer Interaction</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 25 -->
+                    <a href="#" class="cert-card" id="cert-25" data-category="development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>Angular</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 26 -->
+                    <a href="#" class="cert-card" id="cert-26" data-category="development cloud">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>DevOps: CI/CD</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 27 -->
+                    <a href="#" class="cert-card" id="cert-27" data-category="development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>DevOps: Agile & Extreme Programming</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 28 -->
+                    <a href="#" class="cert-card" id="cert-28" data-category="development">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>DevOps: Agile Software Development</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 29 -->
+                    <a href="#" class="cert-card" id="cert-29" data-category="ibm other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>IBM edX: Software Engineer – ML</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 30 -->
+                    <a href="#" class="cert-card" id="cert-30" data-category="ibm other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>IBM edX: Software Engineer – ML</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 31 -->
+                    <a href="#" class="cert-card" id="cert-31" data-category="ibm other">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>IBM edX: AI and Data Science</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 32 -->
+                    <a href="#" class="cert-card" id="cert-32" data-category="nptel other cloud">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>NPTEL: Intro to Industry 4.0 & IIOT</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 33 -->
+                    <a href="#" class="cert-card" id="cert-33" data-category="nptel cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>NPTEL: Cyber Security and Privacy</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- Cert 34 -->
+                    <a href="#" class="cert-card" id="cert-34" data-category="nptel cybersecurity">
+                        <div class="cert-card-image"></div>
+                        <div class="cert-card-content">
+                            <h3>NPTEL: Blockchain</h3>
+                            <p>Certificate</p>
+                        </div>
+                    </a>
+                    <!-- --- ALL 34 CERTIFICATES (STYLES) --- -->
+                    <style>
+                        #cert-1 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Alteryx); }
+                        #cert-2 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Kali+Linux); }
+                        #cert-3 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Wireshark); }
+                        #cert-4 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=AWS+Cloud); }
+                        #cert-5 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=Cryptography); }
+                        #cert-6 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Browser+Attacks); }
+                        #cert-7 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Website+Threats); }
+                        #cert-8 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Android+Security); }
+                        #cert-9 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=ExcelR); }
+                        #cert-10 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=BHARAT+INTERN); }
+                        #cert-11 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Pinnacle+Labs); }
+                        #cert-12 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=GUVI); }
+                        #cert-13 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Android+Security); }
+                        #cert-14 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=IBM+SkillsBuild); }
+                        #cert-15 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=HTML5); }
+                        #cert-16 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=TypeScript); }
+                        #cert-17 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Excel+365); }
+                        #cert-18 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=SQL+Injection); }
+                        #cert-19 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=JavaScript); }
+                        #cert-20 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=Healthcare+IT); }
+                        #cert-21 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=Chatbots); }
+                        #cert-22 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=Motivation); }
+                        #cert-23 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=Coaching); }
+                        #cert-24 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=AI+HCI); }
+                        #cert-25 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=Angular); }
+                        #cert-26 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=DevOps+CI/CD); }
+                        #cert-27 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=DevOps+Agile); }
+                        #cert-28 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=DevOps+Agile); }
+                        #cert-29 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=IBM+edX+ML); }
+                        #cert-30 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e9c46a/e0e0e0?text=IBM+edX+ML); }
+                        #cert-31 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/2a9d8f/e0e0e0?text=IBM+edX+AI); }
+                        #cert-32 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/e76f51/e0e0e0?text=NPTEL+IIOT); }
+                        #cert-33 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/f4a261/e0e0e0?text=NPTEL+Cybersecurity); }
+                        #cert-34 .cert-card-image { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://placehold.co/400x200/264653/e0e0e0?text=NPTEL+Blockchain); }
+                      </style>
+                </div>
             </div>
         </div>
     </section>
@@ -2051,6 +2180,37 @@
       window.addEventListener("scroll", onScroll);
       onScroll(); // Run on load
 
+      // --- Tabbed Skills Logic ---
+      const skillsNav = document.getElementById('skills-nav');
+      if(skillsNav) {
+        const navButtons = skillsNav.querySelectorAll('.skill-nav-btn');
+        const contentPanes = document.querySelectorAll('.skills-content');
+
+        navButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+
+            // Update buttons
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // Update content
+            contentPanes.forEach(pane => {
+              if (pane.id === `tab-${tabId}`) {
+                pane.classList.add('active');
+              } else {
+                pane.classList.remove('active');
+              }
+            });
+          });
+        });
+
+        // Activate the first tab by default
+        if(navButtons.length > 0) {
+            navButtons[0].click();
+        }
+      }
+
 
       // --- 3D Coverflow Carousel Logic (Projects) ---
       const projectsCarousel = document.getElementById("projects-carousel");
@@ -2088,13 +2248,19 @@
         }
       }
 
-      // --- Certification Grid with Filters (Simplified) ---
+      // --- Certification Grid with Filters, View Modes & Custom Scrollbar ---
       const certGridContainer = document.getElementById('cert-grid-container');
       const certFiltersContainer = document.getElementById('cert-filters');
+      const certViewModesContainer = document.getElementById('cert-view-modes');
+      const certScrollUpBtn = document.getElementById('cert-scroll-up');
+      const certScrollDownBtn = document.getElementById('cert-scroll-down');
+      const certScrollbarThumb = document.getElementById('cert-scrollbar-thumb');
+      const certScrollbarTrack = document.getElementById('cert-scrollbar-track');
 
-      if (certGridContainer && certFiltersContainer) {
+      if (certGridContainer && certFiltersContainer && certViewModesContainer && certScrollUpBtn && certScrollDownBtn && certScrollbarThumb && certScrollbarTrack) {
           const certCards = Array.from(certGridContainer.querySelectorAll(".cert-card"));
           const filterButtons = certFiltersContainer.querySelectorAll('.cert-filter-btn');
+          const viewButtons = certViewModesContainer.querySelectorAll('.cert-view-btn');
 
           // --- Filter Logic ---
           filterButtons.forEach(button => {
@@ -2102,49 +2268,101 @@
                   const filterValue = button.getAttribute('data-filter');
                   filterButtons.forEach(btn => btn.classList.remove('active'));
                   button.classList.add('active');
-                  
                   certCards.forEach(card => {
                       const categories = card.getAttribute('data-category').split(' ');
                       const shouldShow = filterValue === 'all' || categories.includes(filterValue);
                       if (shouldShow) { card.classList.remove('hidden'); }
                       else { card.classList.add('hidden'); }
                   });
+                   certGridContainer.scrollTop = 0;
+                   updateScrollbar();
               });
           });
 
-          // Initialize: Show all cards
-          filterButtons[0].click();
-      }
-      
-      // --- Tabbed Skills Section ---
-      const skillsNav = document.getElementById('skills-nav');
-      if (skillsNav) {
-          const tabButtons = skillsNav.querySelectorAll('.skill-tab-btn');
-          const tabContents = document.querySelectorAll('.skill-tab-content');
-
-          tabButtons.forEach(button => {
+          // --- View Mode Logic ---
+          viewButtons.forEach(button => {
               button.addEventListener('click', () => {
-                  const tabId = button.getAttribute('data-tab');
-
-                  // Update button active state
-                  tabButtons.forEach(btn => btn.classList.remove('active'));
+                  const viewValue = button.getAttribute('data-view');
+                  viewButtons.forEach(btn => btn.classList.remove('active'));
                   button.classList.add('active');
-
-                  // Update content active state
-                  tabContents.forEach(content => {
-                      if (content.id === `tab-${tabId}`) {
-                          content.classList.add('active');
-                      } else {
-                          content.classList.remove('active');
-                      }
-                  });
+                  certGridContainer.classList.remove('view-focused', 'view-balanced', 'view-informative');
+                  certGridContainer.classList.add(`view-${viewValue}`);
+                  certGridContainer.scrollTop = 0;
+                  updateScrollbar();
               });
+          });
+
+          // --- Custom Scrollbar Logic ---
+          const scrollAmount = 300;
+          certScrollUpBtn.addEventListener('click', () => { certGridContainer.scrollTop -= scrollAmount; });
+          certScrollDownBtn.addEventListener('click', () => { certGridContainer.scrollTop += scrollAmount; });
+
+          function updateScrollbar() {
+            const scrollableHeight = certGridContainer.scrollHeight - certGridContainer.clientHeight;
+            if (scrollableHeight <= 0) {
+                certScrollbarThumb.style.height = '0px';
+                return;
+            }
+            
+            const scrollPercent = certGridContainer.scrollTop / scrollableHeight;
+            const trackHeight = certScrollbarTrack.clientHeight;
+            const thumbHeight = Math.max(20, (certGridContainer.clientHeight / certGridContainer.scrollHeight) * trackHeight);
+            const thumbPosition = (trackHeight - thumbHeight) * scrollPercent;
+            
+            certScrollbarThumb.style.height = `${thumbHeight}px`;
+            certScrollbarThumb.style.top = `${thumbPosition}px`;
+          }
+
+          certGridContainer.addEventListener('scroll', updateScrollbar);
+          window.addEventListener('resize', updateScrollbar);
+          
+          let isDraggingThumb = false;
+          let startY = 0;
+          let startScrollTop = 0;
+
+          certScrollbarThumb.addEventListener('mousedown', (e) => {
+            isDraggingThumb = true;
+            startY = e.clientY;
+            startScrollTop = certGridContainer.scrollTop;
+            certScrollbarThumb.classList.add('dragging');
+            document.body.style.userSelect = 'none';
           });
           
-          // Initialize first tab
-          if (tabButtons.length > 0) {
-              tabButtons[0].click();
-          }
+          document.addEventListener('mousemove', (e) => {
+            if (!isDraggingThumb) return;
+            e.preventDefault();
+            const deltaY = e.clientY - startY;
+            const trackHeight = certScrollbarTrack.clientHeight;
+            const thumbHeight = certScrollbarThumb.clientHeight;
+            const scrollableHeight = certGridContainer.scrollHeight - certGridContainer.clientHeight;
+            if (scrollableHeight <= 0) return;
+            
+            const deltaScroll = (deltaY / (trackHeight - thumbHeight)) * scrollableHeight;
+            certGridContainer.scrollTop = startScrollTop + deltaScroll;
+          });
+
+          document.addEventListener('mouseup', () => {
+            isDraggingThumb = false;
+            certScrollbarThumb.classList.remove('dragging');
+            document.body.style.userSelect = '';
+          });
+
+          certScrollbarTrack.addEventListener('click', (e) => {
+            if (e.target === certScrollbarTrack) {
+                const rect = certScrollbarTrack.getBoundingClientRect();
+                const clickY = e.clientY - rect.top;
+                const thumbHeight = certScrollbarThumb.clientHeight;
+                const scrollableHeight = certGridContainer.scrollHeight - certGridContainer.clientHeight;
+                if (scrollableHeight <= 0) return;
+
+                const clickPercent = (clickY - (thumbHeight / 2)) / (rect.height - thumbHeight);
+                certGridContainer.scrollTop = clickPercent * scrollableHeight;
+            }
+          });
+
+          filterButtons[0].click();
+          viewButtons[1].click();
+          setTimeout(updateScrollbar, 100);
       }
 
 
