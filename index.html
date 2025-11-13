@@ -315,7 +315,7 @@
         /* New Hero Image Panel */
         .hero-image-panel {
             grid-column: 2 / 3;
-            height: 100%;
+            height: 90%;
             background-image: url('/pro1.jpg');
             background-size: cover;
             background-position: center 30%; /* Adjust to show top of placeholder */
@@ -329,6 +329,28 @@
 
 
         /* --- SECTION TITLE --- */
+        .section-title-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 8vw; /* Strong spacing between sections */
+            border-bottom: 2px solid var(--color-black);
+            padding-bottom: 2rem;
+            margin-bottom: 3rem; /* More space after title */
+        }
+        .section-back-btn {
+            font-size: clamp(2rem, 6vw, 5rem); /* Scale with title */
+            font-weight: 900;
+            color: var(--color-black);
+            text-decoration: none;
+            line-height: 0.8; /* Align with text */
+            transition: all 0.3s ease;
+        }
+        .section-back-btn:hover {
+            color: var(--color-accent);
+            transform: translateX(-5px);
+        }
+
         .section-title {
             font-size: clamp(3rem, 10vw, 8rem); /* Big, responsive font */
             font-weight: 900;
@@ -336,10 +358,11 @@
             letter-spacing: -3px; /* Tighter spacing */
             line-height: 0.9;
             color: var(--color-black);
-            border-bottom: 2px solid var(--color-black);
-            padding-bottom: 2rem;
-            margin-bottom: 3rem; /* More space after title */
-            margin-top: 8vw; /* Strong spacing between sections */
+            /* Remove individual borders/margins */
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            margin-top: 0;
         }
 
         /* --- THE GRID (MODULAR & BOLD BLOCKS) --- */
@@ -1253,7 +1276,7 @@
                 grid-column: 1 / 2;
                 width: 100%;
                 height: 300px;
-                background-image: url('/pro1.jpg');
+                background-image: url('pro1.jpg');
                 background-position: center;
                 /* Reset animation */
                 animation: none;
@@ -1261,11 +1284,17 @@
             }
 
             /* Section title mobile */
+            .section-title-container {
+                gap: 1rem;
+                padding-bottom: 1rem;
+                margin-bottom: 2rem;
+            }
+            .section-back-btn {
+                font-size: 2.2rem;
+            }
             .section-title {
                 font-size: 3rem; /* Smaller but still bold */
                 letter-spacing: -1px;
-                padding-bottom: 1rem;
-                margin-bottom: 2rem;
             }
 
 
@@ -1361,6 +1390,9 @@
             .hero-content p {
                 font-size: 1.25rem; /* Further reduce hero paragraph */
             }
+            .section-back-btn {
+                font-size: 1.8rem;
+            }
             .section-title {
                 font-size: 2.2rem; /* Further reduce section titles */
             }
@@ -1442,7 +1474,9 @@
             </section>
 
             <!-- ======== EXPERIENCE ======== -->
-            <h3 class="section-title" id="experience">Experience</h3>
+            <div class="section-title-container">
+                <h3 class="section-title" id="experience">Experience</h3>
+            </div>
             <section class="grid-tile experience-card" data-index="0">
                 <div class="company">
                     <h4>Work Based Learning Internship</h4>
@@ -1460,7 +1494,9 @@
             </section>
 
             <!-- ======== ACHIEVEMENTS ======== -->
-            <h3 class="section-title" id="achievements">Achievements</h3>
+            <div class="section-title-container">
+                <h3 class="section-title" id="achievements">Achievements</h3>
+            </div>
             <section class="achievements-grid">
                 <div class="grid-tile achievement-card" data-index="0">
                     <h2>First Prize</h2>
@@ -1477,7 +1513,9 @@
             </section>
 
             <!-- ======== SKILLS ======== -->
-            <h3 class="section-title" id="skills">Technical Skills</h3>
+            <div class="section-title-container">
+                <h3 class="section-title" id="skills">Technical Skills</h3>
+            </div>
             <section class="skills-grid">
                 <div class="grid-tile skill-category" data-index="0">
                     <h4>Security & PenTest</h4>
@@ -1547,7 +1585,10 @@
         <!-- ======== PROJECTS PAGE ======== -->
         <div id="page-projects" class="page">
             <!-- ======== WORK 01 ======== -->
-            <h3 class="section-title" id="work">Selected Work (01)</h3>
+            <div class="section-title-container">
+                <a href="#page-home" class="section-back-btn">&larr;</a>
+                <h3 class="section-title" id="work">Selected Work (01)</h3>
+            </div>
             <section class="work-grid">
                 <!-- Tile 1: Project Title -->
                 <div class="grid-tile tile-title" data-index="0">
@@ -1585,7 +1626,9 @@
             </section>
 
             <!-- ======== WORK 02 ======== -->
-            <h3 class="section-title">Selected Work (02)</h3>
+            <div class="section-title-container">
+                <h3 class="section-title">Selected Work (02)</h3>
+            </div>
             <section class="work-grid"> <!-- Removed class="work-grid-2" -->
                 <!-- Project 2: Modern Career Guidance -->
                 <div class="grid-tile tile-title" data-index="0">
@@ -1630,7 +1673,10 @@
 
         <!-- ======== BLOG PAGE ======== -->
         <div id="page-blog" class="page">
-            <h3 class="section-title" id="blog">Blog</h3>
+            <div class="section-title-container">
+                <a href="#page-home" class="section-back-btn">&larr;</a>
+                <h3 class="section-title" id="blog">Blog</h3>
+            </div>
             <section class="blog-grid">
                 <!-- Blog Card 1 -->
                 <a href="#" class="grid-tile blog-card" data-index="0">
@@ -1749,7 +1795,7 @@
                     }
                 } else {
                     // Only scroll to top if not an anchor link
-                    if (!window.location.hash.includes('#') || window.location.hash === '#page-home' || window.location.hash === '') {
+                    if (!window.location.hash.includes('#') || window.location.hash === '#page-home' || window.location.hash === '' || window.location.hash === '#top') {
                         window.scrollTo(0, 0);
                     }
                 }
