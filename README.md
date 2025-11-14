@@ -1,9 +1,5 @@
 # Hi there, I'm Kalyan Chavala 👋
 
-## A Security-First Software Engineer
-
-### I build and secure complex, high-performance web applications. My expertise lies in full-stack development with a deep focus on cybersecurity, from initial system design to deployment and vulnerability assessment.
-
 ### 🔭 Portfolio: You can see my latest work on my personal portfolio website.
 
 ### 🤝 Connect: I'm open to collaborating on challenging projects, especially in the web security and secure development space.
