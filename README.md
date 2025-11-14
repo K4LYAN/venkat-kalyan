@@ -40,15 +40,15 @@
 
 #### Cloud & Tools
 
-Amazon Web Services (AWS)
+- Amazon Web Services (AWS)
 
 #### Virtualization (VirtualBox, noVNC)
 
-Git & Maven
+- Git & Maven
 
-Figma
+- Figma
 
-# 🔗 Connect with Me
+### 🔗 Connect with Me
 
 <p align="left">
 <a href="https://linkedin.com/in/venkatkalyanchavala/" target="_blank" rel="noopener noreferrer">
